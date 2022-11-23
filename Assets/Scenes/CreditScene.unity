@@ -939,8 +939,10 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
-    m_LineSpacing: 1
-  m_Text: CREDIT HERE
+    m_LineSpacing: 1.5
+  m_Text: "<b>Loops</b>\nSavannaMusic : Dead Home \nDaddy's Music : Tense Detective
+    Looped Drone\nNo Way Out : David Robson\n\n<b>SFX</b>\nswuing : footstep-wood\ninspectorj
+    : door-front-opening-a\nmastersdisaster : switch-on-livingroom\n"
 --- !u!222 &1981818351
 CanvasRenderer:
   m_ObjectHideFlags: 0

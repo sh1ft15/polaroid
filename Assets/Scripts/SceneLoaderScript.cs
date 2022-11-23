@@ -21,6 +21,14 @@ public class SceneLoaderScript : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    public IEnumerator TriggerFadeIn() { 
+        animator.SetTrigger("start");
+
+        yield return new WaitForSeconds(1);
+
+        animator.Play("crossfade_end", 0);
+    }
+
     public void LoadScene(string sceneName){
         StartCoroutine(TriggerScene(sceneName));
     }
