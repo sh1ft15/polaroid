@@ -5,5 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/InteractObject", order = 2)]
 public class InteractObject : ScriptableObject
 {
-    
+    public string characterName;
+    public List<CardObject> giveCards;
+    public List<CardObject> receiveCards;
+    public List<string> dialogs;
+    public List<Sprite> sprites;
+    public bool playOnAwake;
 }
+

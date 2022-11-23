@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee0ef953e7a18534ca5162f05b89cbf7, type: 3}
+  m_Name: Intro
+  m_EditorClassIdentifier: 
+  characterName: Introduction
+  giveCards: []
+  receiveCards: []
+  dialogs:
+  - I woke up in a puddle of water.
+  - Weirdly enough, the water did not drench my shirt.
+  - The main entrance didn't seem to budge.
+  - Where am I ?
+  - '[''WASD'' to move and ''E'' to interact]'
+  sprites:
+  - {fileID: -6870878811888720337, guid: 69c715a0b457aa84494ad7109e9c3ad8, type: 3}
+  - {fileID: -6870878811888720337, guid: 69c715a0b457aa84494ad7109e9c3ad8, type: 3}
+  - {fileID: -4706178189316424022, guid: 69c715a0b457aa84494ad7109e9c3ad8, type: 3}
+  - {fileID: -4706178189316424022, guid: 69c715a0b457aa84494ad7109e9c3ad8, type: 3}
+  - {fileID: -4706178189316424022, guid: 69c715a0b457aa84494ad7109e9c3ad8, type: 3}
+  playOnAwake: 1

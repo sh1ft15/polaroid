@@ -7,12 +7,12 @@ public class CardScript : MonoBehaviour
 {
     [SerializeField] List<CardObject> _cards;
     [SerializeField] Transform _inventoryUI, _tradeUI, _interactUI;
+    InteractObject _curInteractObject;
+    int _curInteractIndex = 0;
     bool _inventoryActive, _tradeActive, _interactActive;
 
     void Start() {
-        ToggleInventory(false);
-        ToggleTrade(false);
-        ToggleInteract(false);
+        // ToggleInteract(true, _intro);
     }
 
     void Update() {
@@ -22,8 +22,8 @@ public class CardScript : MonoBehaviour
     public void ToggleInventory(bool status) {
         if (_inventoryActive != status) {
             if (status) {
-                if (_tradeActive) { ToggleTrade(false); }
-                if (_interactActive) { ToggleInteract(false); }
+
+                if (_tradeActive || _interactActive) { return; }
 
                 List<CardObject> cards = _cards.FindAll(c => c.unlocked == true);
                 Transform preview = _inventoryUI.Find("Preview/Cards");
@@ -74,8 +74,7 @@ public class CardScript : MonoBehaviour
     public void ToggleTrade(bool status) {
         if (_tradeActive != status) {
             if (status) {
-                if (_inventoryActive) { ToggleInventory(false); }
-                if (_interactActive) { ToggleInteract(false); }
+                if (_inventoryActive || _interactActive) { return; }
             }
 
             ToggleCanvasGroup(_tradeUI, status);
@@ -83,16 +82,51 @@ public class CardScript : MonoBehaviour
         }
     }
 
-    public void ToggleInteract(bool status) {
+    public void ToggleInteract(bool status, InteractObject interact = null) {
         if (_interactActive != status) {
             if (status) {
-                if (_inventoryActive) { ToggleInventory(false); }
-                if (_tradeActive) { ToggleTrade(false); }
+                if (_inventoryActive || _tradeActive) { return; }
+
+                if (interact != null) {
+                    _curInteractObject = interact;
+                    ProgressInteract(0);
+                }
+                else { return; }
+            }
+            else { 
+                _curInteractIndex = 0; 
+                _curInteractObject = null;
             }
 
             ToggleCanvasGroup(_interactUI, status);
             _interactActive = status;
         }
+    }
+
+    public void ProgressInteract(int dir = 0) {
+        Image image = _interactUI.Find("Image/Sprite").GetComponent<Image>();
+        Text label = _interactUI.Find("Dialog/Text").GetComponent<Text>();
+        List<string> dialogs = _curInteractObject.dialogs;
+        List<Sprite> sprites = _curInteractObject.sprites;
+        int index = _curInteractIndex + dir;
+
+        if (index >= 0 && index < dialogs.Count) {
+            string text = dialogs[index];
+
+            if (text != "") { label.text = text; }
+            
+            if (index < sprites.Count) { 
+                Sprite sprite = sprites[index]; 
+
+                if (!image.enabled) { image.enabled = true; }
+
+                if (sprite != null) { image.sprite = sprite; }
+            }
+
+            _curInteractIndex = index;
+        }
+        // clicking the last next
+        else if (index >= dialogs.Count) { ToggleInteract(false); }
     }
 
     void ToggleCanvasGroup(Transform ui, bool status) {
