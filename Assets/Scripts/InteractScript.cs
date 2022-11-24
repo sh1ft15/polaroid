@@ -27,7 +27,7 @@ public class InteractScript : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D col) {
-        if (col != null ) {
+        if (col != null && _interactObject != null) {
             Transform root = col.transform.root;
 
             if (root.tag == "Player") { 
@@ -38,7 +38,7 @@ public class InteractScript : MonoBehaviour
     }
 
     void OnTriggerExit2D(Collider2D col) {
-        if (col != null ) {
+        if (col != null && _interactObject != null) {
             Transform root = col.transform.root;
 
             if (root.tag == "Player") { 

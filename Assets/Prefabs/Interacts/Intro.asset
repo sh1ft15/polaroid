@@ -22,9 +22,9 @@ MonoBehaviour:
   - Where am I ?
   - '[''WASD'' to move and ''E'' to interact]'
   sprites:
-  - {fileID: -6870878811888720337, guid: 69c715a0b457aa84494ad7109e9c3ad8, type: 3}
-  - {fileID: -6870878811888720337, guid: 69c715a0b457aa84494ad7109e9c3ad8, type: 3}
-  - {fileID: -4706178189316424022, guid: 69c715a0b457aa84494ad7109e9c3ad8, type: 3}
-  - {fileID: -4706178189316424022, guid: 69c715a0b457aa84494ad7109e9c3ad8, type: 3}
-  - {fileID: -4706178189316424022, guid: 69c715a0b457aa84494ad7109e9c3ad8, type: 3}
+  - {fileID: -5582008789581697498, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
+  - {fileID: -8542821113726843983, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
+  - {fileID: -3257069147948839004, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
+  - {fileID: -3257069147948839004, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
+  - {fileID: -3257069147948839004, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
   playOnAwake: 1

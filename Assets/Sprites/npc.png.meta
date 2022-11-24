@@ -1,37 +1,25 @@
 fileFormatVersion: 2
-guid: 1bb11ed8553aed945aed1475f3154192
+guid: f0de54b13427e56438b78f9dff2dc300
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5582008789581697498
-    second: storyboards 1_0
+      213: -8922328891513336043
+    second: npc_0
   - first:
-      213: -8542821113726843983
-    second: storyboards 1_1
+      213: 5527661196443274707
+    second: npc_1
   - first:
-      213: -3257069147948839004
-    second: storyboards 1_2
+      213: -2495014906627460004
+    second: npc_2
   - first:
-      213: 7174061438755580789
-    second: storyboards 1_3
+      213: 5610367206947713552
+    second: npc_3
   - first:
-      213: -3042227843873447778
-    second: storyboards 1_4
+      213: 2230936588577103941
+    second: npc_4
   - first:
-      213: 8447585974242145579
-    second: storyboards 1_5
-  - first:
-      213: 2911729425135705676
-    second: storyboards 1_6
-  - first:
-      213: -7714593293376366743
-    second: storyboards 1_7
-  - first:
-      213: 7410948168167544240
-    second: storyboards 1_8
-  - first:
-      213: -1464609548557473495
-    second: storyboards 1_9
+      213: -9111473675286820144
+    second: npc_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -95,7 +83,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: 4
     textureCompression: 1
@@ -107,7 +95,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Standalone
-    maxTextureSize: 4096
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: 4
     textureCompression: 1
@@ -119,7 +107,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: WebGL
-    maxTextureSize: 4096
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: 4
     textureCompression: 1
@@ -133,13 +121,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: storyboards 1_0
+      name: npc_0
       rect:
         serializedVersion: 2
-        x: 19
-        y: 9
-        width: 579
-        height: 386
+        x: 0
+        y: 192
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,20 +135,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 62eefd3a498b882b0800000000000000
-      internalID: -5582008789581697498
+      spriteID: 51f842c45258d2480800000000000000
+      internalID: -8922328891513336043
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: storyboards 1_1
+      name: npc_1
       rect:
         serializedVersion: 2
-        x: 624
-        y: 9
-        width: 579
-        height: 386
+        x: 96
+        y: 192
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,20 +156,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1b3ca98757dc17980800000000000000
-      internalID: -8542821113726843983
+      spriteID: 3dd46b4429236bc40800000000000000
+      internalID: 5527661196443274707
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: storyboards 1_2
+      name: npc_2
       rect:
         serializedVersion: 2
-        x: 1231
-        y: 9
-        width: 578
-        height: 386
+        x: 0
+        y: 96
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -189,20 +177,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4af00abddd09cc2d0800000000000000
-      internalID: -3257069147948839004
+      spriteID: c547a2d592def5dd0800000000000000
+      internalID: -2495014906627460004
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: storyboards 1_3
+      name: npc_3
       rect:
         serializedVersion: 2
-        x: 1838
-        y: 9
-        width: 577
-        height: 386
+        x: 96
+        y: 96
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -210,20 +198,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 57baad56ed26f8360800000000000000
-      internalID: 7174061438755580789
+      spriteID: 0127e9def370cdd40800000000000000
+      internalID: 5610367206947713552
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: storyboards 1_4
+      name: npc_4
       rect:
         serializedVersion: 2
-        x: 2443
-        y: 9
-        width: 578
-        height: 386
+        x: 0
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -231,20 +219,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e90ee18f4e5d7c5d0800000000000000
-      internalID: -3042227843873447778
+      spriteID: 5406f8ed101e5fe10800000000000000
+      internalID: 2230936588577103941
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: storyboards 1_5
+      name: npc_5
       rect:
         serializedVersion: 2
-        x: 3049
-        y: 9
-        width: 579
-        height: 386
+        x: 96
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -252,92 +240,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b257644bfaadb3570800000000000000
-      internalID: 8447585974242145579
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: storyboards 1_6
-      rect:
-        serializedVersion: 2
-        x: 3654
-        y: 9
-        width: 579
-        height: 386
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c4e14433c7a886820800000000000000
-      internalID: 2911729425135705676
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: storyboards 1_7
-      rect:
-        serializedVersion: 2
-        x: 4261
-        y: 9
-        width: 578
-        height: 386
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 967d0b9f54240f490800000000000000
-      internalID: -7714593293376366743
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: storyboards 1_8
-      rect:
-        serializedVersion: 2
-        x: 4868
-        y: 9
-        width: 577
-        height: 386
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0b55574181af8d660800000000000000
-      internalID: 7410948168167544240
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: storyboards 1_9
-      rect:
-        serializedVersion: 2
-        x: 5473
-        y: 9
-        width: 578
-        height: 386
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 929269b1069acabe0800000000000000
-      internalID: -1464609548557473495
+      spriteID: 0dac43c87fa8d8180800000000000000
+      internalID: -9111473675286820144
       vertices: []
       indices: 
       edges: []
