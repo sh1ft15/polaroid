@@ -13,16 +13,18 @@ MonoBehaviour:
   m_Name: Npc1
   m_EditorClassIdentifier: 
   characterName: Npc 1
-  giveCards: []
-  receiveCards: []
+  giveCards:
+  - {fileID: 11400000, guid: 451e0886f8c39754597d3979c9ac8240, type: 2}
+  - {fileID: 11400000, guid: 00276e9574f2a5b4e99f7eb391b7e20e, type: 2}
+  receiveCards:
+  - {fileID: 11400000, guid: 00276e9574f2a5b4e99f7eb391b7e20e, type: 2}
+  - {fileID: 11400000, guid: 0ef6ba78071c9d444b6e7ad89d436d3a, type: 2}
   dialogs:
-  - 'You new here ? '
-  - You have those polaroid images ?
-  - Wanna trade with me ?
+  - You can't get rid of those polaroid images.
+  - You can only trade them.
   - '[''Tab'' to open inventory.]'
   sprites:
-  - {fileID: -7714593293376366743, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
-  - {fileID: -7714593293376366743, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
-  - {fileID: -7714593293376366743, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
-  - {fileID: -7714593293376366743, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
+  - {fileID: 1771227250153909093, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
+  - {fileID: 1771227250153909093, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
+  - {fileID: 1771227250153909093, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
   playOnAwake: 0

@@ -8,27 +8,24 @@ public class CardScript : MonoBehaviour
     [SerializeField] List<CardObject> _cards;
     [SerializeField] Transform _inventoryUI, _tradeUI, _interactUI;
     InteractObject _curInteractObject;
-    int _curInteractIndex = 0;
-    bool _inventoryActive, _tradeActive, _interactActive;
+    int _curInteractIndex = 0, _curTradeIndex = 0;
+    bool _uiActive;
 
     void Start() {
         // ToggleInteract(true, _intro);
     }
 
     void Update() {
-        if (Input.GetKeyUp(KeyCode.Tab)) { ToggleInventory(!_inventoryActive); }
+        if (Input.GetKeyUp(KeyCode.Tab)) { ToggleInventory(!_uiActive); }
     }
 
     public void ToggleInventory(bool status) {
-        if (_inventoryActive != status) {
+        if (_uiActive && status) { return; }
+
+        if (_uiActive != status) {
             if (status) {
-
-                if (_tradeActive || _interactActive) { return; }
-
                 List<CardObject> cards = _cards.FindAll(c => c.unlocked == true);
                 Transform preview = _inventoryUI.Find("Preview/Cards");
-
-                // Debug.Log(preview);
 
                 for(int i = 0; i < preview.childCount; i++) {
                     Image image = preview.GetChild(i)?.GetComponent<Image>();
@@ -50,7 +47,7 @@ public class CardScript : MonoBehaviour
             }
 
             ToggleCanvasGroup(_inventoryUI, status);
-            _inventoryActive = status;
+            _uiActive = status;
         }
     }
 
@@ -72,22 +69,71 @@ public class CardScript : MonoBehaviour
     }
 
     public void ToggleTrade(bool status) {
-        if (_tradeActive != status) {
+        if (_uiActive && status) { ToggleInteract(false); }
+
+        if (_uiActive != status) {
             if (status) {
-                if (_inventoryActive || _interactActive) { return; }
+                Debug.Log("here: " + _curInteractObject);
+                CycleTrade(0);
             }
 
             ToggleCanvasGroup(_tradeUI, status);
-            _tradeActive = status;
+            _uiActive = status;
         }
     }
 
-    public void ToggleInteract(bool status, InteractObject interact = null) {
-        if (_interactActive != status) {
-            if (status) {
-                if (_inventoryActive || _tradeActive) { return; }
+    public void CycleTrade(int dir = 0) {
+        if (_curInteractObject == null) { return; }
 
+        List<CardObject> giveCards = _curInteractObject.giveCards, 
+                         receiveCards = _curInteractObject.receiveCards;
+        int index = _curTradeIndex + dir;
+
+        
+         Debug.Log("index: " + index);
+         Debug.Log("giveCards: " + giveCards.Count);
+         Debug.Log("receiveCards: " + receiveCards.Count);
+
+        if (index >= 0 && index < giveCards.Count && index < receiveCards.Count) {
+
+            foreach(string type in new string[]{"Give", "Receive"}) {
+                CardObject card;
+
+                if (type.Equals("Give")) { card = giveCards[index]; }
+                else { card = receiveCards[index]; }
+
+                if (card != null) {
+                    Image image = _tradeUI.Find(type + "/Card").GetComponent<Image>();
+                    Text title = _tradeUI.Find(type + "/Title").GetComponent<Text>(),
+                        desc = _tradeUI.Find(type + "/Desc").GetComponent<Text>(),
+                        num = _tradeUI.Find(type + "/InStore/Num").GetComponent<Text>();
+                    
+                    image.sprite = card.sprite;
+                    title.text = card.title;
+                    desc.text = card.description;
+                    num.text = card.count.ToString("00");
+                }
+            }
+
+            _curTradeIndex = index;
+        }
+    }
+
+    public void PerformTrade() {
+        Debug.Log("trade performed");
+    }
+
+    public void ToggleInteract(bool status, InteractObject interact = null) {
+        if (_uiActive && status) { return; }
+
+        if (_uiActive != status) {
+            if (status) {
                 if (interact != null) {
+                    List<CardObject> giveCards = interact.giveCards,
+                                     receiveCards = interact.receiveCards;
+                    GameObject trade = _interactUI.Find("Dialog/Trade").gameObject;
+
+                    trade.SetActive(giveCards.Count > 0 && receiveCards.Count == giveCards.Count);
                     _curInteractObject = interact;
                     ProgressInteract(0);
                 }
@@ -95,11 +141,11 @@ public class CardScript : MonoBehaviour
             }
             else { 
                 _curInteractIndex = 0; 
-                _curInteractObject = null;
+                // _curInteractObject = null;
             }
 
             ToggleCanvasGroup(_interactUI, status);
-            _interactActive = status;
+            _uiActive = status;
         }
     }
 

@@ -3,35 +3,38 @@ guid: 1bb11ed8553aed945aed1475f3154192
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5582008789581697498
-    second: storyboards 1_0
+      213: -6870878811888720337
+    second: storyboards_0
   - first:
-      213: -8542821113726843983
-    second: storyboards 1_1
+      213: -4706178189316424022
+    second: storyboards_1
   - first:
-      213: -3257069147948839004
-    second: storyboards 1_2
+      213: -907961786140862310
+    second: storyboards_2
   - first:
-      213: 7174061438755580789
-    second: storyboards 1_3
+      213: 8800052782340440749
+    second: storyboards_3
   - first:
-      213: -3042227843873447778
-    second: storyboards 1_4
+      213: -3564561923071158904
+    second: storyboards_4
   - first:
-      213: 8447585974242145579
-    second: storyboards 1_5
+      213: 5404652341917355970
+    second: storyboards_5
   - first:
-      213: 2911729425135705676
-    second: storyboards 1_6
+      213: -5778867741168275803
+    second: storyboards_6
   - first:
-      213: -7714593293376366743
-    second: storyboards 1_7
+      213: 1771227250153909093
+    second: storyboards_7
   - first:
-      213: 7410948168167544240
-    second: storyboards 1_8
+      213: -9211889809063366651
+    second: storyboards_8
   - first:
-      213: -1464609548557473495
-    second: storyboards 1_9
+      213: 6491560597106950373
+    second: storyboards_9
+  - first:
+      213: -2840497921910154926
+    second: storyboards_10
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -133,74 +136,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: storyboards 1_0
+      name: storyboards_0
       rect:
         serializedVersion: 2
-        x: 19
-        y: 9
-        width: 579
-        height: 386
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 62eefd3a498b882b0800000000000000
-      internalID: -5582008789581697498
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: storyboards 1_1
-      rect:
-        serializedVersion: 2
-        x: 624
-        y: 9
-        width: 579
-        height: 386
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1b3ca98757dc17980800000000000000
-      internalID: -8542821113726843983
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: storyboards 1_2
-      rect:
-        serializedVersion: 2
-        x: 1231
-        y: 9
-        width: 578
-        height: 386
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4af00abddd09cc2d0800000000000000
-      internalID: -3257069147948839004
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: storyboards 1_3
-      rect:
-        serializedVersion: 2
-        x: 1838
-        y: 9
+        x: 20
+        y: 8
         width: 577
         height: 386
       alignment: 0
@@ -210,18 +150,81 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 57baad56ed26f8360800000000000000
-      internalID: 7174061438755580789
+      spriteID: f266d92cf1cb5a0a0800000000000000
+      internalID: -6870878811888720337
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: storyboards 1_4
+      name: storyboards_1
+      rect:
+        serializedVersion: 2
+        x: 625
+        y: 8
+        width: 578
+        height: 386
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aae7a180fdb40beb0800000000000000
+      internalID: -4706178189316424022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: storyboards_2
+      rect:
+        serializedVersion: 2
+        x: 1230
+        y: 8
+        width: 580
+        height: 386
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a98d17be0954663f0800000000000000
+      internalID: -907961786140862310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: storyboards_3
+      rect:
+        serializedVersion: 2
+        x: 1837
+        y: 8
+        width: 578
+        height: 386
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da207108161102a70800000000000000
+      internalID: 8800052782340440749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: storyboards_4
       rect:
         serializedVersion: 2
         x: 2443
-        y: 9
+        y: 8
         width: 578
         height: 386
       alignment: 0
@@ -231,19 +234,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e90ee18f4e5d7c5d0800000000000000
-      internalID: -3042227843873447778
+      spriteID: 885d57b11d1288ec0800000000000000
+      internalID: -3564561923071158904
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: storyboards 1_5
+      name: storyboards_5
       rect:
         serializedVersion: 2
-        x: 3049
-        y: 9
-        width: 579
+        x: 3048
+        y: 8
+        width: 580
         height: 386
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -252,19 +255,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b257644bfaadb3570800000000000000
-      internalID: 8447585974242145579
+      spriteID: 2cf877e7bae210b40800000000000000
+      internalID: 5404652341917355970
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: storyboards 1_6
+      name: storyboards_6
       rect:
         serializedVersion: 2
-        x: 3654
-        y: 9
-        width: 579
+        x: 3655
+        y: 8
+        width: 578
         height: 386
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -273,19 +276,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c4e14433c7a886820800000000000000
-      internalID: 2911729425135705676
+      spriteID: 5ae63bb38665dcfa0800000000000000
+      internalID: -5778867741168275803
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: storyboards 1_7
+      name: storyboards_7
       rect:
         serializedVersion: 2
         x: 4261
-        y: 9
-        width: 578
+        y: 8
+        width: 579
         height: 386
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -294,19 +297,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 967d0b9f54240f490800000000000000
-      internalID: -7714593293376366743
+      spriteID: 56b6ae5bcc9a49810800000000000000
+      internalID: 1771227250153909093
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: storyboards 1_8
+      name: storyboards_8
       rect:
         serializedVersion: 2
-        x: 4868
-        y: 9
-        width: 577
+        x: 4866
+        y: 8
+        width: 579
         height: 386
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -315,18 +318,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0b55574181af8d660800000000000000
-      internalID: 7410948168167544240
+      spriteID: 500bcbc760bc82080800000000000000
+      internalID: -9211889809063366651
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: storyboards 1_9
+      name: storyboards_9
       rect:
         serializedVersion: 2
         x: 5473
-        y: 9
+        y: 8
         width: 578
         height: 386
       alignment: 0
@@ -336,8 +339,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 929269b1069acabe0800000000000000
-      internalID: -1464609548557473495
+      spriteID: 5e08b7428f7a61a50800000000000000
+      internalID: 6491560597106950373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: storyboards_10
+      rect:
+        serializedVersion: 2
+        x: 6078
+        y: 8
+        width: 580
+        height: 386
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2595f4b80368498d0800000000000000
+      internalID: -2840497921910154926
       vertices: []
       indices: 
       edges: []

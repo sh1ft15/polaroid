@@ -16,15 +16,13 @@ MonoBehaviour:
   giveCards: []
   receiveCards: []
   dialogs:
-  - I woke up in a puddle of water.
-  - Weirdly enough, the water did not drench my shirt.
-  - The main entrance didn't seem to budge.
-  - Where am I ?
+  - 'Cold water on my face woke me up. '
+  - The first things I saw was these weird polaroid images.
+  - The main entrance seem to be locked, I don't know where I am.
   - '[''WASD'' to move and ''E'' to interact]'
   sprites:
-  - {fileID: -5582008789581697498, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
-  - {fileID: -8542821113726843983, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
-  - {fileID: -3257069147948839004, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
-  - {fileID: -3257069147948839004, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
-  - {fileID: -3257069147948839004, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
+  - {fileID: -6870878811888720337, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
+  - {fileID: -4706178189316424022, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
+  - {fileID: -907961786140862310, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
+  - {fileID: -907961786140862310, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
   playOnAwake: 1
