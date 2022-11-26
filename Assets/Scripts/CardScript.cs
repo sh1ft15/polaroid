@@ -8,15 +8,41 @@ public class CardScript : MonoBehaviour
     [SerializeField] List<CardObject> _cards;
     [SerializeField] Transform _inventoryUI, _tradeUI, _interactUI;
     InteractObject _curInteractObject;
+    PlayerScript _player;
     int _curInteractIndex = 0, _curTradeIndex = 0;
+    string _curUIType;
+    Coroutine _animateTradeCoroutine;
     bool _uiActive;
 
     void Start() {
-        // ToggleInteract(true, _intro);
+        _player = GameObject.Find("/Player").GetComponent<PlayerScript>();
     }
 
     void Update() {
-        if (Input.GetKeyUp(KeyCode.Tab)) { ToggleInventory(!_uiActive); }
+        if (Input.GetKeyUp(KeyCode.Tab)) { 
+            if (_curUIType.Equals("inventory") || _curUIType.Equals("")) { ToggleInventory(!_uiActive); }
+        }
+    }
+
+    public bool IsActive() { return _uiActive; }
+
+    public bool HasCard(string code) {
+        return _cards.FindIndex(c => c.code.Equals(code) && c.count > 0) != -1;
+    }
+
+    public CardObject GetCard(string code) { return _cards.Find(c => c.code.Equals(code)); }
+
+    public void UpdateCardCount(string code, int num = 0) {
+        CardObject card = GetCard(code);
+
+        if (card != null) { card.count = Mathf.Max(card.count + num, 0); }
+    }
+
+    public void ResetCards() {
+        foreach(CardObject card in _cards) {
+            card.preset.ApplyTo(card);
+            card.unlocked = card.count > 0;
+        }
     }
 
     public void ToggleInventory(bool status) {
@@ -48,6 +74,7 @@ public class CardScript : MonoBehaviour
 
             ToggleCanvasGroup(_inventoryUI, status);
             _uiActive = status;
+            _curUIType = status ? "inventory" : "";
         }
     }
 
@@ -72,13 +99,11 @@ public class CardScript : MonoBehaviour
         if (_uiActive && status) { ToggleInteract(false); }
 
         if (_uiActive != status) {
-            if (status) {
-                Debug.Log("here: " + _curInteractObject);
-                CycleTrade(0);
-            }
+            if (status) { CycleTrade(0); }
 
             ToggleCanvasGroup(_tradeUI, status);
             _uiActive = status;
+            _curUIType = status ? "trade" : "";
         }
     }
 
@@ -89,12 +114,10 @@ public class CardScript : MonoBehaviour
                          receiveCards = _curInteractObject.receiveCards;
         int index = _curTradeIndex + dir;
 
-        
-         Debug.Log("index: " + index);
-         Debug.Log("giveCards: " + giveCards.Count);
-         Debug.Log("receiveCards: " + receiveCards.Count);
+        if (index >= 0 && index < giveCards.Count && index < receiveCards.Count && giveCards.Count == receiveCards.Count) {
+            Text dialogTitle = _tradeUI.Find("Title/Text").GetComponent<Text>();
 
-        if (index >= 0 && index < giveCards.Count && index < receiveCards.Count) {
+            dialogTitle.text = "TRADE [" + (index + 1) + "/" + giveCards.Count + "]";
 
             foreach(string type in new string[]{"Give", "Receive"}) {
                 CardObject card;
@@ -111,7 +134,7 @@ public class CardScript : MonoBehaviour
                     image.sprite = card.sprite;
                     title.text = card.title;
                     desc.text = card.description;
-                    num.text = card.count.ToString("00");
+                    num.text = card.count.ToString("00") + " / " + card.limit.ToString("00");
                 }
             }
 
@@ -120,8 +143,40 @@ public class CardScript : MonoBehaviour
     }
 
     public void PerformTrade() {
-        Debug.Log("trade performed");
+        CardObject giveCard = _curInteractObject.giveCards[_curTradeIndex],
+                   receiveCard = _curInteractObject.receiveCards[_curTradeIndex];
+        Text giveCount = _tradeUI.Find("Give/InStore/Num").GetComponent<Text>(),
+             receiveCount = _tradeUI.Find("Receive/InStore/Num").GetComponent<Text>();
+        Animator giveAnim = giveCount.transform.parent.GetComponent<Animator>(),
+                 receiveAnim = receiveCount.transform.parent.GetComponent<Animator>();
+
+        if ((giveCard?.count ?? 0) > 0 && (receiveCard?.count ?? 0) < (receiveCard?.limit ?? 0)) {
+            giveCard.count = Mathf.Max(giveCard.count - 1, 0);
+            giveCard.unlocked = giveCard.count > 0;
+
+            receiveCard.count = Mathf.Max(receiveCard.count + 1, 0);
+            receiveCard.unlocked = receiveCard.count > 0;
+
+            giveCount.text = giveCard.count.ToString("00") + " / " + giveCard.limit.ToString("00");
+            giveAnim.Play("decrease", 0);
+
+            receiveCount.text = receiveCard.count.ToString("00") + " / " + receiveCard.limit.ToString("00");
+            receiveAnim.Play("increase", 0);
+
+            UpdateCardEffect(giveCard);
+            UpdateCardEffect(receiveCard);
+        }
+        else {
+            giveAnim.Play("decrease", 0);
+            receiveAnim.Play("decrease", 0);
+        }
     }
+
+    public void UpdateCardEffect(CardObject card) {
+        switch(card.code){
+            case "plotArmor": _player.UpdateHealth(card.count); break;
+        }
+    }   
 
     public void ToggleInteract(bool status, InteractObject interact = null) {
         if (_uiActive && status) { return; }
@@ -135,7 +190,7 @@ public class CardScript : MonoBehaviour
 
                     trade.SetActive(giveCards.Count > 0 && receiveCards.Count == giveCards.Count);
                     _curInteractObject = interact;
-                    ProgressInteract(0);
+                    CycleInteract(0);
                 }
                 else { return; }
             }
@@ -146,12 +201,15 @@ public class CardScript : MonoBehaviour
 
             ToggleCanvasGroup(_interactUI, status);
             _uiActive = status;
+            _curUIType = status ? "interact" : "";
         }
     }
 
-    public void ProgressInteract(int dir = 0) {
+    public void CycleInteract(int dir = 0) {
         Image image = _interactUI.Find("Image/Sprite").GetComponent<Image>();
-        Text label = _interactUI.Find("Dialog/Text").GetComponent<Text>();
+        Text label = _interactUI.Find("Dialog/Text").GetComponent<Text>(),
+             nextText = _interactUI.Find("Dialog/Next/Text").GetComponent<Text>();
+        GameObject backBtn = _interactUI.Find("Dialog/Back").gameObject;
         List<string> dialogs = _curInteractObject.dialogs;
         List<Sprite> sprites = _curInteractObject.sprites;
         int index = _curInteractIndex + dir;
@@ -169,6 +227,8 @@ public class CardScript : MonoBehaviour
                 if (sprite != null) { image.sprite = sprite; }
             }
 
+            backBtn.SetActive(index > 0);
+            nextText.text = index >= (dialogs.Count - 1) ? "CLOSE X" : "NEXT >";
             _curInteractIndex = index;
         }
         // clicking the last next

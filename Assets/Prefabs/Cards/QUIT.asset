@@ -10,9 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06e0fbb5b72c94146b99f0ddf4fa8fc4, type: 3}
-  m_Name: QUIT
+  m_Name: quit
   m_EditorClassIdentifier: 
   title: Quit
-  code: QUIT
+  code: quit
   sprite: {fileID: -657809462729225012, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
+  preset: {fileID: 2655988077585873504, guid: 31be865f13d2cde4e868466f7dd5a4ae, type: 2}
+  count: 0
+  limit: 1
+  unlocked: 0
   description: Allow you to quit the game.

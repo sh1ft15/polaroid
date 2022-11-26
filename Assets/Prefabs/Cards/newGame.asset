@@ -10,10 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06e0fbb5b72c94146b99f0ddf4fa8fc4, type: 3}
-  m_Name: DRL
+  m_Name: newGame
   m_EditorClassIdentifier: 
-  title: Dodge Roll
-  code: DRL
-  sprite: {fileID: 2975849240591541955, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
-  description: Allow you to perform dodge roll. You're somehow invincible while doing
-    it.
+  title: New Game
+  code: newGame
+  sprite: {fileID: 3929718611160277314, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
+  preset: {fileID: 2655988077585873504, guid: 3ddda5532b69c3f4680076625a0cfcd0, type: 2}
+  count: 1
+  limit: 1
+  unlocked: 1
+  description: You started a new game, you must finish the game to be able to escape.

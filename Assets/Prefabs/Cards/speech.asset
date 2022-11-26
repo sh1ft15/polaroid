@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06e0fbb5b72c94146b99f0ddf4fa8fc4, type: 3}
-  m_Name: PLR
+  m_Name: speech
   m_EditorClassIdentifier: 
-  title: Plot Armor
-  code: PLR
-  sprite: {fileID: -1145144668836272637, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
-  count: 3
-  unlocked: 1
-  description: Plot armor help you tank a hit. Represent your health point.
+  title: Speech 100
+  code: speech
+  sprite: {fileID: 8948946568479395471, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
+  preset: {fileID: 2655988077585873504, guid: 7cafb500359b4254cb12c67bb383ee32, type: 2}
+  count: 0
+  limit: 1
+  unlocked: 0
+  description: Allow you to negotiate with the enemy.

@@ -10,9 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06e0fbb5b72c94146b99f0ddf4fa8fc4, type: 3}
-  m_Name: MTW
+  m_Name: blank
   m_EditorClassIdentifier: 
-  title: Must have been the wind.
-  code: MTW
-  sprite: {fileID: 5610456433865955097, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
-  description: Allow you to crouch, make it harder for enemy to detect you.
+  title: Blank Polaroid
+  code: blank
+  sprite: {fileID: -16766654373697830, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
+  preset: {fileID: 2655988077585873504, guid: db0a1d905eaaf384b85baee01fa941d1, type: 2}
+  count: 1
+  limit: 10
+  unlocked: 1
+  description: A blank polaroid. You can't do much with it.

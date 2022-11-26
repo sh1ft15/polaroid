@@ -10,9 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06e0fbb5b72c94146b99f0ddf4fa8fc4, type: 3}
-  m_Name: GOR
+  m_Name: plotArmor
   m_EditorClassIdentifier: 
-  title: Game Over
-  code: GOR
-  sprite: {fileID: -2922113337684369405, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
-  description: Trigger the end of the game.
+  title: Plot Armor
+  code: plotArmor
+  sprite: {fileID: -1145144668836272637, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
+  preset: {fileID: 2655988077585873504, guid: 690287c8e9e022747861df924ebe1cd5, type: 2}
+  count: 3
+  limit: 10
+  unlocked: 1
+  description: Plot armor help you tank a hit. Represent your health point.

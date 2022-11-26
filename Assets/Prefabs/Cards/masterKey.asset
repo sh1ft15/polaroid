@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06e0fbb5b72c94146b99f0ddf4fa8fc4, type: 3}
-  m_Name: BLK
+  m_Name: masterKey
   m_EditorClassIdentifier: 
-  title: Blank
-  code: BLK
-  sprite: {fileID: -16766654373697830, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
+  title: Master Key
+  code: masterKey
+  sprite: {fileID: -7415955986125602904, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
+  preset: {fileID: 2655988077585873504, guid: 2237341531ec5e245a390959361434ff, type: 2}
   count: 0
-  unlocked: 1
-  description: Blank polaroid. Some people might find it useful.
+  limit: 1
+  unlocked: 0
+  description: The key help you open any common locks.

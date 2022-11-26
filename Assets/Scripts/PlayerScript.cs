@@ -11,30 +11,48 @@ public class PlayerScript : MonoBehaviour
     Collider2D _standCollider;
     SpawnerScript _spawner;
     StealthScript _stealth;
-    // GhostScript _ghost;
+    CardScript _card;
     AudioScript _audio;
     SceneLoaderScript _sceneLoader;
     Vector2 _direction, _collidedPost, _checkScale;
     bool _facingRight = true, _isAttacking, _isCrouching, _isHit, _isDeath, _isDisabled, _forceCrouch;
     Coroutine _attackCoroutine, _hitCoroutine, _recoverArmorCoroutine, _stunCoroutine, footstepCoroutine;
-    float _damage = 2, _moveSpeed = 3, _curHealth = 12, _maxHealth = 12;
+    float _damage = 2, _moveSpeed = 3, _curHealth = 0, _maxHealth = 10;
     int _obstacleLayer;
 
     void Start(){
         _spawner = GameObject.Find("/Spawner").GetComponent<SpawnerScript>();
         _stealth = GameObject.Find("/Stealth").GetComponent<StealthScript>();
-        // _ghost = GameObject.Find("/Ghost").GetComponent<GhostScript>();
+        _card = GameObject.Find("/Card").GetComponent<CardScript>();
         _audio = GameObject.Find("/Audio").GetComponent<AudioScript>();
         _sceneLoader = GameObject.Find("/SceneLoader").GetComponent<SceneLoaderScript>();
 
         _obstacleLayer = LayerMask.GetMask("Obstacle");
         _checkScale = new Vector2(1, 2);
 
+        // init health
+        CardObject plotArmor = _card.GetCard("plotArmor");
+
+        if (plotArmor != null) {
+            _curHealth = plotArmor.count;
+            _maxHealth = plotArmor.limit;
+        }
+        
         UpdateHealth(_curHealth);
+
+        // todo: disabled before deployment
+        _card.ResetCards();
     }
 
     void Update() {
-        if (_isDeath || _isDisabled) { return; }
+        if (_isDeath || _isDisabled || _card.IsActive()) { 
+            if (_isCrouching) { 
+                if (CanStandUp()) { StandUp(); }
+                else { _forceCrouch = true; }
+            }
+
+            return; 
+        }
 
         _direction = new Vector2(Input.GetAxisRaw("Horizontal"), 0);
 
@@ -65,7 +83,7 @@ public class PlayerScript : MonoBehaviour
     }
 
     void Crouch() {
-        if (!_isCrouching) {
+        if (!_isCrouching && _card.HasCard("stealth")) {
             _animator.SetBool("crouch", true); 
             _isCrouching = true;
             _forceCrouch = false;
@@ -91,7 +109,7 @@ public class PlayerScript : MonoBehaviour
     void MoveCharacter(float horizontal) {
         float num = 0;
 
-        if (_isDeath || _isAttacking || _isDisabled) { 
+        if (_isDeath || _isAttacking || _isDisabled || _card.IsActive()) { 
             _rbody.velocity = Vector2.zero; 
             _animator.SetFloat("horizontal", num); 
         }
@@ -136,7 +154,7 @@ public class PlayerScript : MonoBehaviour
         text.text = _curHealth.ToString("00");
         animator.SetTrigger("update");
 
-        if (_curHealth <= 0) { StartCoroutine(TriggerDeath()); }
+        if (_curHealth < 0) { StartCoroutine(TriggerDeath()); }
     }
 
     public bool FacingRight() { return _facingRight; }
@@ -202,12 +220,10 @@ public class PlayerScript : MonoBehaviour
     IEnumerator TriggerDeath(){
         if (!_isDeath) {
             _isDeath = true;
-
-            // yield return new WaitForSeconds(1); 
-
             _animator.Play("death", 0);
 
             yield return new WaitForSeconds(1); 
+            _card.ResetCards();
             _sceneLoader.RestartCurrentScene();
         }    
     }
@@ -220,9 +236,9 @@ public class PlayerScript : MonoBehaviour
         return null;
     }
 
-    string Ucwords(string str){
-        if (string.IsNullOrEmpty(str)) return string.Empty; 
-        return char.ToUpper(str[0]) + str.Substring(1);
-    }
+    // string Ucwords(string str){
+    //     if (string.IsNullOrEmpty(str)) return string.Empty; 
+    //     return char.ToUpper(str[0]) + str.Substring(1);
+    // }
 
 }

@@ -10,9 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06e0fbb5b72c94146b99f0ddf4fa8fc4, type: 3}
-  m_Name: SUH
+  m_Name: dream
   m_EditorClassIdentifier: 
-  title: Sucker Punch
-  code: SUH
-  sprite: {fileID: 2364552672744995599, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
-  description: You can  punch anything, even ghost
+  title: It's all a dream.
+  code: dream
+  sprite: {fileID: 4758714507323444636, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
+  preset: {fileID: 2655988077585873504, guid: 1d7101b3df1b0b544bed54c3669c834a, type: 2}
+  count: 0
+  limit: 1
+  unlocked: 0
+  description: Allow you to escape the nightmare.

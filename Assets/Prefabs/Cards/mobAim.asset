@@ -10,9 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06e0fbb5b72c94146b99f0ddf4fa8fc4, type: 3}
-  m_Name: PTT
+  m_Name: mobAim
   m_EditorClassIdentifier: 
-  title: Plot Twist
-  code: MAM
-  sprite: {fileID: 8963368785945452489, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
-  description: There are a twist on the plot.
+  title: Mob's Aim
+  code: mobAim
+  sprite: {fileID: 7024648501981196136, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
+  preset: {fileID: 2655988077585873504, guid: 08fa12c71e815ff46bf8df602363d92e, type: 2}
+  count: 0
+  limit: 1
+  unlocked: 0
+  description: Enemy's attack will miss you half of the time.
