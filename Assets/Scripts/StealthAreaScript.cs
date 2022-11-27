@@ -18,7 +18,7 @@ public class StealthAreaScript : MonoBehaviour
 
             Transform root = col.transform.root;
 
-            if (root.tag == "Player") { 
+            if (root.tag == "Player" && !col.transform.tag.Equals("Hit")) { 
                 _stealth.TriggerIndicator();
                 _stealth.ResetRecoverStealth(1, .1f);
             }
@@ -31,7 +31,7 @@ public class StealthAreaScript : MonoBehaviour
 
             Transform root = col.transform.root;
 
-            if (root.tag == "Player") { 
+            if (root.tag == "Player" && !col.transform.tag.Equals("Hit")) { 
                 _stealth.ResetRecoverStealth(-1, 1f);
             }
         }

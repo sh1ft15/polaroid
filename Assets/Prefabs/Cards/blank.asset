@@ -16,7 +16,8 @@ MonoBehaviour:
   code: blank
   sprite: {fileID: -16766654373697830, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
   preset: {fileID: 2655988077585873504, guid: db0a1d905eaaf384b85baee01fa941d1, type: 2}
-  count: 1
-  limit: 10
-  unlocked: 1
-  description: A blank polaroid. You can't do much with it.
+  count: 0
+  limit: 5
+  unlocked: 0
+  description: A blank polaroid. You can't do much with it but someone might find
+    it useful. Generate 1 upon death.

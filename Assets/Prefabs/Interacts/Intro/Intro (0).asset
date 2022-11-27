@@ -10,19 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee0ef953e7a18534ca5162f05b89cbf7, type: 3}
-  m_Name: Intro
+  m_Name: Intro (0)
   m_EditorClassIdentifier: 
   characterName: Introduction
+  condition: 
   giveCards: []
   receiveCards: []
   dialogs:
   - 'Cold water on my face woke me up. '
   - The first things I saw was these weird polaroid images.
-  - The main entrance seem to be locked, I don't know where I am.
+  - The main entrance seem to be locked.
+  - I don't know where I am.
   - '[''WASD'' to move and ''E'' to interact]'
   sprites:
   - {fileID: -6870878811888720337, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
   - {fileID: -4706178189316424022, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
   - {fileID: -907961786140862310, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
-  - {fileID: -907961786140862310, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
+  - {fileID: 8800052782340440749, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
+  - {fileID: 8800052782340440749, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
   playOnAwake: 1

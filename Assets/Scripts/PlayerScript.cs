@@ -7,15 +7,16 @@ public class PlayerScript : MonoBehaviour
 {
     [SerializeField] Rigidbody2D _rbody;
     [SerializeField] Animator _animator;
-    [SerializeField] GameObject _character, _collision, _healthBar, _armorBar;
+    [SerializeField] GameObject _character, _collision, _healthBar;
     Collider2D _standCollider;
     SpawnerScript _spawner;
     StealthScript _stealth;
     CardScript _card;
     AudioScript _audio;
+    AreaScript _area;
     SceneLoaderScript _sceneLoader;
-    Vector2 _direction, _collidedPost, _checkScale;
-    bool _facingRight = true, _isAttacking, _isCrouching, _isHit, _isDeath, _isDisabled, _forceCrouch;
+    Vector2 _direction, _collidedPost, _checkScale, _dodgeTarget;
+    bool _facingRight = true, _isAttacking, _isDodging, _isCrouching, _isHit, _isDeath, _isDisabled, _forceCrouch;
     Coroutine _attackCoroutine, _hitCoroutine, _recoverArmorCoroutine, _stunCoroutine, footstepCoroutine;
     float _damage = 2, _moveSpeed = 3, _curHealth = 0, _maxHealth = 10;
     int _obstacleLayer;
@@ -23,6 +24,7 @@ public class PlayerScript : MonoBehaviour
     void Start(){
         _spawner = GameObject.Find("/Spawner").GetComponent<SpawnerScript>();
         _stealth = GameObject.Find("/Stealth").GetComponent<StealthScript>();
+        _area = GameObject.Find("/Area").GetComponent<AreaScript>();
         _card = GameObject.Find("/Card").GetComponent<CardScript>();
         _audio = GameObject.Find("/Audio").GetComponent<AudioScript>();
         _sceneLoader = GameObject.Find("/SceneLoader").GetComponent<SceneLoaderScript>();
@@ -45,7 +47,7 @@ public class PlayerScript : MonoBehaviour
     }
 
     void Update() {
-        if (_isDeath || _isDisabled || _card.IsActive()) { 
+        if (_isDeath || _isDisabled || _card.IsActive() || _area.IsChanginArea()) { 
             if (_isCrouching) { 
                 if (CanStandUp()) { StandUp(); }
                 else { _forceCrouch = true; }
@@ -63,8 +65,15 @@ public class PlayerScript : MonoBehaviour
             else { _forceCrouch = true; }
         }
 
-        // if (_attackCoroutine != null) { return; }
-        // if (Input.GetMouseButton(0)) { _attackCoroutine = StartCoroutine(Shoot("top"));  }
+        if (Input.GetKeyDown(KeyCode.Space)) { 
+            Vector2 dir = _direction;
+
+            if (_direction.magnitude <= 0) { dir.x = _facingRight ? 1 : -1; }
+            
+            _attackCoroutine = StartCoroutine(DodgeRoll(dir)); 
+        }
+
+        if (Input.GetMouseButtonDown(0)) { _attackCoroutine = StartCoroutine(Attack());  }
     }
 
     void FixedUpdate() { MoveCharacter(_direction.x); }
@@ -109,9 +118,16 @@ public class PlayerScript : MonoBehaviour
     void MoveCharacter(float horizontal) {
         float num = 0;
 
-        if (_isDeath || _isAttacking || _isDisabled || _card.IsActive()) { 
+        if (_isDeath || _isAttacking || _isDisabled || _card.IsActive() || _area.IsChanginArea()) { 
             _rbody.velocity = Vector2.zero; 
             _animator.SetFloat("horizontal", num); 
+        }
+        else if (_isDodging) {
+            if (Vector2.Distance(_rbody.position, _dodgeTarget) > .5f) {
+                _rbody.MovePosition(Vector2.Lerp(transform.position, _dodgeTarget, 3 * Time.deltaTime)); 
+            }
+            
+            _animator.SetFloat("horizontal", 0); 
         }
         else if (_isHit) {
             _direction = new Vector2((_collidedPost.x > transform.position.x)? -1 : 1, 0);
@@ -126,8 +142,36 @@ public class PlayerScript : MonoBehaviour
             _animator.SetFloat("horizontal", num); 
         }
 
-        if (num > 0 && footstepCoroutine == null) {
+        if (num > 0 && footstepCoroutine == null && !_isDodging) {
             footstepCoroutine = StartCoroutine(CycleFootStep());
+        }
+    }
+
+    IEnumerator Attack(){
+        if (!_isHit && !_isAttacking && _attackCoroutine == null) {
+            Flip(_direction.x);
+            _isAttacking = true;
+            _animator.SetTrigger("punch");
+
+            yield return new WaitForSeconds(.7f);
+            _attackCoroutine = null;
+            _isAttacking = false;
+        }
+    }
+
+    IEnumerator DodgeRoll(Vector2 dir) {
+        if (!_isHit && !_isDodging && _attackCoroutine == null) {
+            Vector2 curPost = _rbody.position;
+
+            Flip(_direction.x);            
+            _animator.SetTrigger("dodge");
+
+            _isDodging = true;
+            _dodgeTarget = CheckPostBound(curPost + (dir * 3.5f));
+
+            yield return new WaitForSeconds(.7f);
+            _attackCoroutine = null;
+            _isDodging = false;
         }
     }
 
@@ -144,6 +188,7 @@ public class PlayerScript : MonoBehaviour
 
     public void UpdateHealth(float num, bool increment = false){
         if (_healthBar == null) { return; }
+        if (_curHealth <= 0) { StartCoroutine(TriggerDeath()); }
 
         Text text = _healthBar.transform.Find("Text").GetComponent<Text>();
         Animator animator = _healthBar.GetComponent<Animator>();
@@ -153,8 +198,6 @@ public class PlayerScript : MonoBehaviour
 
         text.text = _curHealth.ToString("00");
         animator.SetTrigger("update");
-
-        if (_curHealth < 0) { StartCoroutine(TriggerDeath()); }
     }
 
     public bool FacingRight() { return _facingRight; }
@@ -163,7 +206,7 @@ public class PlayerScript : MonoBehaviour
         if (col != null && col.tag.Equals("Hit")) {
 
             // ignore if already death or not alerted by enemy
-            if (_isDeath || !_stealth.IsAlarmed()) { return; }
+            if (_isDeath || !_stealth.IsAlarmed() || _isDodging) { return; }
 
             Transform root = col.transform.root;
             Vector2 targetPost = root.position,
@@ -191,20 +234,31 @@ public class PlayerScript : MonoBehaviour
 
     void TriggerHit(Vector2 hitPost, float damage, bool back){
         if (_hitCoroutine == null) { 
+            if (_isDodging) { return; }
             if (_isCrouching) { StandUp(); }
 
             _animator.Play(back ? "hurt_back" : "hurt", 0);
             _hitCoroutine = StartCoroutine(Hit(.6f));
-            _stealth.UpdateStealth(.5f, true);
             _spawner.StartCoroutine(_spawner.SpawnHit(hitPost));
 
             UpdateHealth(-damage, true);
         }
     }
 
+    Vector2 CheckPostBound(Vector2 post) {
+        float minX = _area.GetWestBound().x,
+              maxX = _area.GetEastBound().x,
+              offset = 3;
+        
+        if (post.x > maxX) { post.x = maxX - offset; }
+        else if (post.x < minX) { post.x = minX + offset; }
+
+        return post;
+    }
+
     IEnumerator CycleFootStep(){
         _audio.PlayAudio(transform.GetComponent<AudioSource>(), "footstep");
-        yield return new WaitForSeconds(_isCrouching ? .4f : .3f);
+        yield return new WaitForSeconds(_isCrouching ? .4f : .34f);
         footstepCoroutine = null;
     }
 

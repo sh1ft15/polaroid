@@ -5,29 +5,40 @@ using UnityEngine;
 public class DoorScript : MonoBehaviour
 {
     [SerializeField] Transform _targetDoor;
-    PlayerScript _player;
-    StealthScript _stealth;
+    [SerializeField] Canvas _canvas;
     AreaScript _area;
-    bool _onDoor, _isLocked;
+    bool _isActive, _isLocked;
     
     void Start() {
-        // _player = GameObject.Find("/Player").GetComponent<PlayerScript>();
         _area = GameObject.Find("/Area").GetComponent<AreaScript>();
+        _canvas.enabled = false;
     }
 
     void Update() {
-        if (_onDoor) { 
-            if (Input.GetKeyUp(KeyCode.W)) { _area.GotoTarget(_targetDoor); }
-        }
+        if (_isActive) { if (Input.GetKeyUp(KeyCode.E)) { _area.GotoTarget(_targetDoor); } }
     }
 
     void OnTriggerEnter2D(Collider2D col) {
-        if (col != null && col.transform.root.tag.Equals("Player")) { _onDoor = true; }
-    } 
+        if (col != null && _targetDoor != null) {
+            Transform root = col.transform.root;
+
+            if (root.tag == "Player") { 
+                _canvas.enabled = true;
+                _isActive = true;
+            }
+        }
+    }
 
     void OnTriggerExit2D(Collider2D col) {
-        if (col != null && col.transform.root.tag.Equals("Player")) { _onDoor = false; }
-    } 
+        if (col != null && _targetDoor != null) {
+            Transform root = col.transform.root;
+
+            if (root.tag == "Player") { 
+                _canvas.enabled = false;
+                _isActive = false;
+            }
+        }
+    }
 
     public void ToggleLock(bool status) { _isLocked = status; }
 }

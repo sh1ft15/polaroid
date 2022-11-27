@@ -6,18 +6,21 @@ public class GhostScript : MonoBehaviour
 {
     [SerializeField] Rigidbody2D _rbody;
     [SerializeField] Animator _animator;
-    [SerializeField] GameObject _character, _collision;
+    [SerializeField] GameObject _character, _collision, _healthBar;
+    [SerializeField] CanvasGroup _canvasGroup;
     Vector2 _direction, _collidedPost, _nextPost, _dashTarget;
     float _moveSpeed, _damage, _curHealth, _maxHealth, _dashDelay, _digDelay, _verticalPost = -.35f;
     PlayerScript _player;
     AreaScript _area;
     StealthScript _stealth;
     AudioScript _audio;
+    SpawnerScript _spawner;
     bool _facingRight = true, _isAttacking, _isHit, _isDeath, _isUnderground, _isActive, _isDisabled, _hasNextPost;
     bool _startingDash, _isDashing, _endingDash;
     Coroutine _hitCoroutine, _attackCoroutine, _updatePatrolCoroutine, _triggerActiveCoroutine;
 
     void Start() {
+        _spawner = GameObject.Find("/Spawner").GetComponent<SpawnerScript>();
         _player = GameObject.Find("/Player").GetComponent<PlayerScript>();
         _area = GameObject.Find("/Area").GetComponent<AreaScript>();
         _stealth = GameObject.Find("/Stealth").GetComponent<StealthScript>();
@@ -25,10 +28,10 @@ public class GhostScript : MonoBehaviour
 
         _moveSpeed = 2;
         _damage = 1;
-        _maxHealth = _curHealth = 30;
+        _maxHealth = _curHealth = 3;
         _dashDelay = _digDelay = 0;
 
-        SetDisabled(true);
+        // SetDisabled(true);
     }
 
     void Update() {
@@ -65,12 +68,12 @@ public class GhostScript : MonoBehaviour
             if (_isAttacking || _isDeath || _isHit || _isUnderground) { _direction = Vector2.zero; }
 
             // too far, start dashing
-            else if (_dashDelay <= 0 && distToPost >= 3f) { 
+            else if (_dashDelay <= 0 && distToPost >= 2.5f) { 
                 if (_attackCoroutine == null) { _attackCoroutine = StartCoroutine(StartDash(dir)); } 
             }
 
             // too far, start digging
-            else if (_digDelay <= 0 && distToPost >= 3f) { 
+            else if (_digDelay <= 0 && distToPost >= 2.5f) { 
                 if (_attackCoroutine == null) { _attackCoroutine = StartCoroutine(DigIn()); } 
             }
 
@@ -81,7 +84,7 @@ public class GhostScript : MonoBehaviour
                 _direction = Vector2.zero;
                 Flip(colOnRight ? 1 : -1);
 
-                if (_attackCoroutine == null) { _attackCoroutine = StartCoroutine(Attack()); }
+                if (_attackCoroutine == null) { _attackCoroutine = StartCoroutine(Attack());  }
             }
 
             // else, move to player
@@ -105,30 +108,32 @@ public class GhostScript : MonoBehaviour
         }        
     }
 
-    // void OnTriggerEnter2D(Collider2D col) {
-    //     if (col != null) {
-    //         Transform root = col.transform.root;
-    //         Vector2 targetPost = root.position,
-    //                 curPost = transform.position,
-    //                 dir = (targetPost - curPost).normalized, 
-    //                 hitPost = col.ClosestPoint(curPost);
-    //         bool colFacingRight,
-    //              colOnRight,
-    //              facingEachOther;
+    void OnTriggerEnter2D(Collider2D col) {
+        if (_isDisabled || !_isActive) { return; }
 
-    //         if (root.tag.Equals("Player") && col.tag.Equals("Hit")) {
-    //             colFacingRight = _player.FacingRight();
-    //             colOnRight = targetPost.x > curPost.x;
-    //             _collidedPost = targetPost;
-    //             facingEachOther = _facingRight != colFacingRight;
+        if (col != null) {
+            Transform root = col.transform.root;
+            Vector2 targetPost = root.position,
+                    curPost = transform.position,
+                    dir = (targetPost - curPost).normalized, 
+                    hitPost = col.ClosestPoint(curPost);
+            bool colFacingRight,
+                 colOnRight,
+                 facingEachOther;
 
-    //             if (facingEachOther || (colFacingRight == !colOnRight)) { 
-    //                 TriggerHit(root.position, dir); 
-    //                 // _spawner.StartCoroutine(_spawner.SpawnHit(hitPost));
-    //             }
-    //         }
-    //     }
-    // }
+            if (root.tag.Equals("Player") && col.tag.Equals("Hit")) {
+                colFacingRight = _player.FacingRight();
+                colOnRight = targetPost.x > curPost.x;
+                _collidedPost = targetPost;
+                facingEachOther = _facingRight != colFacingRight;
+
+                if (facingEachOther || (colFacingRight == !colOnRight)) { 
+                    TriggerHit(root.position, dir); 
+                    _spawner.StartCoroutine(_spawner.SpawnHit(hitPost));
+                }
+            }
+        }
+    }
 
     IEnumerator UpdatePatrolPath() {
         if (!_isActive && !_hasNextPost) {
@@ -149,23 +154,6 @@ public class GhostScript : MonoBehaviour
         newPost = relativePost + offset;
 
         return CheckPostBound(newPost);
-
-        // float minX = _area.GetWestBound().x,
-        //       maxX = _area.GetEastBound().x,
-        //       randX = Random.Range(minX + offset, maxX - offset),
-        //       dist;
-        // Vector2 post = new Vector2(randX, _rbody.position.y);
-        // int maxLoop = 100, i = 0;
-
-        // dist = Vector2.Distance(_rbody.position, post);
-
-        // while(!(dist >= 3) && i < maxLoop) {
-        //     post = GetRandPost();
-        //     dist = Vector2.Distance(_rbody.position, post);
-        //     i++;
-        // }
-        
-        // return post;
     }
 
     Vector2 CheckPostBound(Vector2 post) {
@@ -184,16 +172,23 @@ public class GhostScript : MonoBehaviour
 
         _isActive = status;
         _moveSpeed = status ? 2.7f : 2;
-
-        _stealth?.ResetRecoverStealth(-.5f, 2);
+        _stealth?.ResetRecoverStealth(-1f, 2);
         
+        if (!_isUnderground) { ToggleUI(status); }
         if (!_isActive) { StartCoroutine(UpdatePatrolPath()); } 
     }
 
     public void SetDisabled(bool status) {
         _isDisabled = status;
+        ToggleUI(status);
 
         if (status) { SetActive(false); }
+    }
+
+    public void ToggleUI(bool status) {
+        if (!_isActive && status) { status = false; }
+
+        _canvasGroup.alpha = status ? 1 : 0;
     }
 
     public void UpdateAlpha(float dist){
@@ -218,28 +213,6 @@ public class GhostScript : MonoBehaviour
         if (character.color != charColor) { character.color = charColor; }
         if (shadow.color != shadowColor) { shadow.color = shadowColor; }
     }
-
-    // public void SetActive(bool active){
-    //     if (_triggerActiveCoroutine == null) { 
-    //         _triggerActiveCoroutine = StartCoroutine(TriggerActive(active)); 
-    //     }
-    // }
-
-    // public IEnumerator TriggerActive(bool active) {
-    //     if (_attackCoroutine != null) {
-    //         if (_triggerActiveCoroutine != null) { StopCoroutine(_triggerActiveCoroutine); }
-
-    //         yield return new WaitForSeconds(.1f);
-    //         _triggerActiveCoroutine = StartCoroutine(TriggerActive(active));
-    //     }
-    //     else {
-    //         if (active) { _attackCoroutine = StartCoroutine(DigOut()); }
-    //         else { _attackCoroutine = StartCoroutine(DigIn(true)); }
-
-    //         _isActive = active;
-    //         _triggerActiveCoroutine = null;
-    //     }
-    // }
     
     IEnumerator TriggerDeath(){
         if (!_isDeath) {
@@ -260,15 +233,15 @@ public class GhostScript : MonoBehaviour
     }
 
     public void UpdateHealth(float num, bool increment = false){
-        // Vector2 scale = _healthBar.transform.localScale;
+        Vector2 scale = _healthBar.transform.localScale;
 
         if (increment) {
             _curHealth = Mathf.Max(Mathf.Min(_curHealth + num, _maxHealth), 0);
         }
         else { _curHealth = Mathf.Min(num, _maxHealth); }
 
-        // scale.x = _curHealth / _maxHealth;
-        // _healthBar.transform.localScale = scale;
+        scale.x = _curHealth / _maxHealth;
+        _healthBar.transform.localScale = scale;
 
         if (_curHealth <= 0) { StartCoroutine(TriggerDeath()); }
     }
@@ -278,7 +251,7 @@ public class GhostScript : MonoBehaviour
             _collidedPost = post;
             _collidedPost.y = transform.position.y;
             _hitCoroutine = StartCoroutine(Hit(dir, 0.4f));
-            // UpdateHealth(-_player.GetDamage(), true);
+            UpdateHealth(-1, true);
         }
     }
 
@@ -303,6 +276,7 @@ public class GhostScript : MonoBehaviour
         if (!_isHit && !_isAttacking) {
             _isAttacking = true;
             _animator.SetTrigger("attack");
+            // _stealth.UpdateStealth(.5f, true);
 
             yield return new WaitForSeconds(2f);
             _isAttacking = false;
@@ -314,6 +288,7 @@ public class GhostScript : MonoBehaviour
         if (!_isHit && !_isAttacking && !_isUnderground) {
             _isAttacking = true;
             _animator.SetTrigger("dig_in");
+            ToggleUI(false);
 
             yield return new WaitForSeconds(3f);
 
@@ -346,6 +321,8 @@ public class GhostScript : MonoBehaviour
             _attackCoroutine = null;
             _isUnderground = false;
             _digDelay = _isActive ? 1.2f : 3f;
+
+            if (_isActive) { ToggleUI(true); }
         }
     }
 

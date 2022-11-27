@@ -42,18 +42,19 @@ Preset:
     objectReference: {fileID: 2655988077585873504}
   - target: {fileID: 0}
     propertyPath: count
-    value: 1
+    value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: limit
-    value: 10
+    value: 5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: unlocked
-    value: 1
+    value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: description
-    value: A blank polaroid. You can't do much with it.
+    value: A blank polaroid. You can't do much with it but someone might find it
+      useful. Generate 1 upon death.
     objectReference: {fileID: 0}
   m_ExcludedProperties: []

@@ -20,14 +20,15 @@ public class CardScript : MonoBehaviour
 
     void Update() {
         if (Input.GetKeyUp(KeyCode.Tab)) { 
+            if (_curUIType.Equals("interact")) { ToggleInteract(false); }
             if (_curUIType.Equals("inventory") || _curUIType.Equals("")) { ToggleInventory(!_uiActive); }
         }
     }
 
     public bool IsActive() { return _uiActive; }
 
-    public bool HasCard(string code) {
-        return _cards.FindIndex(c => c.code.Equals(code) && c.count > 0) != -1;
+    public bool HasCard(string code, int count = 1) {
+        return _cards.FindIndex(c => c.code.Equals(code) && c.count >= count) != -1;
     }
 
     public CardObject GetCard(string code) { return _cards.Find(c => c.code.Equals(code)); }
@@ -40,7 +41,8 @@ public class CardScript : MonoBehaviour
 
     public void ResetCards() {
         foreach(CardObject card in _cards) {
-            card.preset.ApplyTo(card);
+            if (!card.code.Equals("blank")) { card.preset.ApplyTo(card); }
+            
             card.unlocked = card.count > 0;
         }
     }
@@ -89,7 +91,7 @@ public class CardScript : MonoBehaviour
                  count = dialog.Find("Count/Num").GetComponent<Text>();
             
             title.text = card.title;
-            count.text = card.count.ToString("00");
+            count.text = card.count.ToString("00") + " / " + card.limit.ToString("00");
             desc.text = card.description;
             hilite.position = item.position;
         }

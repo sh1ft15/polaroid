@@ -35,6 +35,9 @@ TextureImporter:
   - first:
       213: -2840497921910154926
     second: storyboards_10
+  - first:
+      213: -8036975594574440319
+    second: storyboards_11
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -139,10 +142,10 @@ TextureImporter:
       name: storyboards_0
       rect:
         serializedVersion: 2
-        x: 20
-        y: 8
-        width: 577
-        height: 386
+        x: 18
+        y: 9
+        width: 579
+        height: 387
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,9 +164,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 625
-        y: 8
-        width: 578
-        height: 386
+        y: 9
+        width: 579
+        height: 387
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,9 +185,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1230
-        y: 8
-        width: 580
-        height: 386
+        y: 9
+        width: 579
+        height: 387
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,10 +205,10 @@ TextureImporter:
       name: storyboards_3
       rect:
         serializedVersion: 2
-        x: 1837
-        y: 8
-        width: 578
-        height: 386
+        x: 1836
+        y: 9
+        width: 579
+        height: 387
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -224,9 +227,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2443
-        y: 8
-        width: 578
-        height: 386
+        y: 9
+        width: 579
+        height: 387
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -245,9 +248,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 3048
-        y: 8
-        width: 580
-        height: 386
+        y: 9
+        width: 579
+        height: 387
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -265,10 +268,10 @@ TextureImporter:
       name: storyboards_6
       rect:
         serializedVersion: 2
-        x: 3655
-        y: 8
-        width: 578
-        height: 386
+        x: 3654
+        y: 9
+        width: 579
+        height: 387
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -287,9 +290,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 4261
-        y: 8
+        y: 9
         width: 579
-        height: 386
+        height: 387
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -308,9 +311,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 4866
-        y: 8
+        y: 9
         width: 579
-        height: 386
+        height: 387
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -328,10 +331,10 @@ TextureImporter:
       name: storyboards_9
       rect:
         serializedVersion: 2
-        x: 5473
-        y: 8
-        width: 578
-        height: 386
+        x: 5472
+        y: 9
+        width: 579
+        height: 387
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -349,10 +352,10 @@ TextureImporter:
       name: storyboards_10
       rect:
         serializedVersion: 2
-        x: 6078
-        y: 8
-        width: 580
-        height: 386
+        x: 6079
+        y: 9
+        width: 579
+        height: 387
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -362,6 +365,27 @@ TextureImporter:
       bones: []
       spriteID: 2595f4b80368498d0800000000000000
       internalID: -2840497921910154926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: storyboards_11
+      rect:
+        serializedVersion: 2
+        x: 6684
+        y: 9
+        width: 579
+        height: 387
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18818e8474de67090800000000000000
+      internalID: -8036975594574440319
       vertices: []
       indices: 
       edges: []

@@ -8,6 +8,7 @@ public class StealthScript : MonoBehaviour
     [SerializeField] Transform _stealthBar;
     GhostScript _ghostScript;
     PlayerScript _playerScript;
+    AreaScript _area;
     AudioScript _audio;
     float _curStealth = 0, _maxStealth = 10;
     bool _isAlarmed = false;
@@ -17,6 +18,8 @@ public class StealthScript : MonoBehaviour
         _playerScript = GameObject.Find("/Player").GetComponent<PlayerScript>();
         _ghostScript = GameObject.Find("/Ghost").GetComponent<GhostScript>();
         _audio = GameObject.Find("/Audio").GetComponent<AudioScript>();
+        _area = GameObject.Find("/Area").GetComponent<AreaScript>();
+        
         _ghostScript.SetActive(false);
         ResetRecoverStealth(-1, 0);
     }
@@ -47,7 +50,7 @@ public class StealthScript : MonoBehaviour
 
     public void ResetRecoverStealth(float dir, float delay){
         if (_isAlarmed && dir >= 0) { return; }
-        if (_recoverStealthCoroutine != null) { StopCoroutine(_recoverStealthCoroutine);  }
+        if (_recoverStealthCoroutine != null) { StopCoroutine(_recoverStealthCoroutine); }
         _recoverStealthCoroutine = StartCoroutine(RecoverStealth(dir, delay));
     }
 
@@ -73,17 +76,24 @@ public class StealthScript : MonoBehaviour
     IEnumerator RecoverStealth(float dir, float delay){
         yield return new WaitForSeconds(delay);
         
-        bool playerIsCrouching = _playerScript.IsCrouching();
+        bool playerIsCrouching = _playerScript.IsCrouching(),
+             hasLight = _area.HasLight();
         float rate;
 
-        if (dir < 0) { rate = playerIsCrouching ? .2f : .1f; }
-        else { rate = !playerIsCrouching ? .2f : .1f; }
+        if (dir < 0) { 
+            rate = playerIsCrouching ? .2f : .1f; 
+            rate = hasLight ? rate : rate * .3f;
+        }
+        else { 
+            rate = playerIsCrouching ? .1f : .2f; 
+            rate = hasLight ? rate * .3f : rate;
+        }
 
         UpdateStealth(rate * dir, true);
         ResetRecoverStealth(dir, .1f);
 
         // Debug.Log(_recoverStealthCoroutine == null);
-        // _recoverStealthCoroutine = StartCoroutine(RecoverStealth(dir, .1f));
+        //_recoverStealthCoroutine = StartCoroutine(RecoverStealth(dir, .1f));
     }
     
 }

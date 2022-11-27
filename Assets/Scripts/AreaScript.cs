@@ -1,23 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AreaScript : MonoBehaviour
 {
+    [SerializeField] Text _locationLabel;
     Transform _activeArea, _westBound, _eastBound;    
     PlayerScript _player; 
     StealthScript _stealth;
+    SwitchScript _switch;
     SceneLoaderScript _sceneLoader;    
-    Coroutine _changeAreaCoroutine;                                                                                                                                                                                                                
+    Coroutine _changeAreaCoroutine;    
+    bool _changingArea;                                                                                                                                                                                                            
 
-    void Awake() {
-        UpdateActiveArea(transform.GetChild(0));
-    }
+    void Awake() { UpdateActiveArea(transform.GetChild(0)); }
 
     void Start(){
         _sceneLoader = GameObject.Find("/SceneLoader").GetComponent<SceneLoaderScript>();
         _stealth = GameObject.Find("/Stealth").GetComponent<StealthScript>();
         _player = GameObject.Find("/Player").GetComponent<PlayerScript>();
+
+        if (_switch != null) { _switch.ToggleLight(true); }
     }
 
     public void UpdateArea(string areaName){
@@ -26,7 +31,6 @@ public class AreaScript : MonoBehaviour
         if (targetArea != null) {
             for(int i = 0; i < transform.childCount; i++) {
                 Transform child = transform.GetChild(i);
-
                 child.Find("Sprite").gameObject.SetActive(child.name.Equals(areaName)); 
             }
         }
@@ -37,6 +41,8 @@ public class AreaScript : MonoBehaviour
             _activeArea = area;
             _westBound = _activeArea.Find("WestBound");
             _eastBound = _activeArea.Find("EastBound");
+            _switch = _activeArea.Find("Switch")?.GetComponent<SwitchScript>();
+            _locationLabel.text = "- " + SplitCamelCase(area.name) + " -";
         }
     }
 
@@ -50,18 +56,33 @@ public class AreaScript : MonoBehaviour
         }
     }
 
+    string SplitCamelCase(string value) {
+        return string.Join(" ", Regex.Split(value, @"(?<!^)(?=[A-Z](?![A-Z]|$))"));
+    }
+
+    public bool IsChanginArea() { return _changingArea; }
+
+    public bool HasLight() { return _switch?.IsTurnedOn() ?? false; }
+
     IEnumerator ChangeArea(Transform target){
-        if (target != null && !_stealth.IsAlarmed()) {
+        if (target != null && !_stealth.IsAlarmed() && !_changingArea) {
             Vector2 playerPost = _player.transform.position,
                     targetPost = target.transform.position;
             string areaName = target.parent.name;
+
+            _changingArea = true;
 
             yield return _sceneLoader.StartCoroutine(_sceneLoader.TriggerFadeIn());
 
             playerPost.x = targetPost.x;
             _player.transform.position = playerPost;
+
             UpdateArea(areaName);
-            _stealth.UpdateArea(areaName);
+            UpdateActiveArea(target.parent);
+
+            yield return new WaitForSeconds(.3f);
+            _changingArea = false;
+            // _stealth.UpdateArea(areaName);
         }
         else { Debug.Log("Cannot leave this area"); }
 

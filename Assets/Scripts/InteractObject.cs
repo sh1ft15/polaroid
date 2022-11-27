@@ -6,6 +6,7 @@ using UnityEngine;
 public class InteractObject : ScriptableObject
 {
     public string characterName;
+    public string condition = "";
     public List<CardObject> giveCards;
     public List<CardObject> receiveCards;
     public List<string> dialogs;
