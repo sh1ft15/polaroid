@@ -15,11 +15,9 @@ MonoBehaviour:
   characterName: Person C
   condition: 
   giveCards:
-  - {fileID: 11400000, guid: c05358fb3c686594faba7dcab367c95c, type: 2}
-  - {fileID: 11400000, guid: 3fee2da5f900eb8479d32b002f2b44e9, type: 2}
+  - {fileID: 11400000, guid: 00276e9574f2a5b4e99f7eb391b7e20e, type: 2}
   receiveCards:
   - {fileID: 11400000, guid: 3fee2da5f900eb8479d32b002f2b44e9, type: 2}
-  - {fileID: 11400000, guid: c05358fb3c686594faba7dcab367c95c, type: 2}
   dialogs:
   - Do you really think these images will help ?
   sprites:

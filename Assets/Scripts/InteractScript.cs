@@ -6,7 +6,7 @@ public class InteractScript : MonoBehaviour
 {
     [SerializeField] Canvas _canvas;
     [SerializeField] List<InteractObject> _interacts;
-    int _curInteractIndex = 0;
+    [SerializeField] int _curInteractIndex = 0;
     CardScript _card;
     bool _isActive;
 

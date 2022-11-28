@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee0ef953e7a18534ca5162f05b89cbf7, type: 3}
+  m_Name: GhostA1
+  m_EditorClassIdentifier: 
+  characterName: Ghost A1
+  condition: 
+  giveCards:
+  - {fileID: 11400000, guid: 43b2df7dabec82e4a95e2ae20c7543e6, type: 2}
+  receiveCards:
+  - {fileID: 11400000, guid: d328ba16ce402164ba5349ea3158e30b, type: 2}
+  dialogs:
+  - ....
+  sprites:
+  - {fileID: -8036975594574440319, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
+  playOnAwake: 0

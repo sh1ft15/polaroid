@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee0ef953e7a18534ca5162f05b89cbf7, type: 3}
+  m_Name: ChestA
+  m_EditorClassIdentifier: 
+  characterName: Chest A
+  condition: 
+  giveCards:
+  - {fileID: 11400000, guid: bcda84a46d9083842a727783036d65de, type: 2}
+  receiveCards:
+  - {fileID: 11400000, guid: c05358fb3c686594faba7dcab367c95c, type: 2}
+  dialogs:
+  - de yei hovu thu kuy te eir fruudem
+  sprites:
+  - {fileID: -1528228757683689290, guid: f93fe977899dc794cab7d58f6b14c188, type: 3}
+  playOnAwake: 0

@@ -9,6 +9,7 @@ public class CardScript : MonoBehaviour
     [SerializeField] Transform _inventoryUI, _tradeUI, _interactUI;
     InteractObject _curInteractObject;
     PlayerScript _player;
+    SceneLoaderScript _sceneLoader;
     int _curInteractIndex = 0, _curTradeIndex = 0;
     string _curUIType;
     Coroutine _animateTradeCoroutine;
@@ -16,6 +17,7 @@ public class CardScript : MonoBehaviour
 
     void Start() {
         _player = GameObject.Find("/Player").GetComponent<PlayerScript>();
+        _sceneLoader = GameObject.Find("SceneLoader").GetComponent<SceneLoaderScript>();
     }
 
     void Update() {
@@ -36,7 +38,9 @@ public class CardScript : MonoBehaviour
     public void UpdateCardCount(string code, int num = 0) {
         CardObject card = GetCard(code);
 
-        if (card != null) { card.count = Mathf.Max(card.count + num, 0); }
+        if (card != null) { 
+            card.count = Mathf.Min(Mathf.Max(card.count + num, 0), card.limit);
+        }
     }
 
     public void ResetCards() {
@@ -101,6 +105,8 @@ public class CardScript : MonoBehaviour
         if (_uiActive && status) { ToggleInteract(false); }
 
         if (_uiActive != status) {
+            _curTradeIndex = 0;
+            
             if (status) { CycleTrade(0); }
 
             ToggleCanvasGroup(_tradeUI, status);
@@ -177,6 +183,9 @@ public class CardScript : MonoBehaviour
     public void UpdateCardEffect(CardObject card) {
         switch(card.code){
             case "plotArmor": _player.UpdateHealth(card.count); break;
+            case "quit": _sceneLoader.LoadScene("EndSceneC"); break;
+            case "gameOver": _sceneLoader.LoadScene("EndSceneA"); break;
+            case "dream": _sceneLoader.LoadScene("EndSceneB"); break;
         }
     }   
 

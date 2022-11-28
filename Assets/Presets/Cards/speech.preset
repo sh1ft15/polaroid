@@ -54,6 +54,6 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: description
-    value: Allow you to negotiate with the enemy.
+    value: Allow you to talk to anyone or anything ?
     objectReference: {fileID: 0}
   m_ExcludedProperties: []

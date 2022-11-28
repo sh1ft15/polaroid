@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: Person B
   condition: 
-  giveCards: []
-  receiveCards: []
+  giveCards:
+  - {fileID: 11400000, guid: 00276e9574f2a5b4e99f7eb391b7e20e, type: 2}
+  receiveCards:
+  - {fileID: 11400000, guid: 0ef6ba78071c9d444b6e7ad89d436d3a, type: 2}
   dialogs:
   - 'Don''t go upstairs if you know what''s good for you. '
-  - I don't want to trade any of my collection for now.
   sprites:
-  - {fileID: -2840497921910154926, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
   - {fileID: -2840497921910154926, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
   playOnAwake: 0

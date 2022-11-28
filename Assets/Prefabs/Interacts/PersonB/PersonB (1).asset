@@ -16,12 +16,10 @@ MonoBehaviour:
   condition: 
   giveCards:
   - {fileID: 11400000, guid: 00276e9574f2a5b4e99f7eb391b7e20e, type: 2}
-  - {fileID: 11400000, guid: 0ef6ba78071c9d444b6e7ad89d436d3a, type: 2}
   receiveCards:
   - {fileID: 11400000, guid: 0ef6ba78071c9d444b6e7ad89d436d3a, type: 2}
-  - {fileID: 11400000, guid: 00276e9574f2a5b4e99f7eb391b7e20e, type: 2}
   dialogs:
-  - At this point, I don't care anymore. Show me what you got.
+  - 'Why do care so much about those images ? '
   sprites:
   - {fileID: -2840497921910154926, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
   playOnAwake: 0

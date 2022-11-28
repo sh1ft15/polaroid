@@ -21,7 +21,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 00276e9574f2a5b4e99f7eb391b7e20e, type: 2}
   - {fileID: 11400000, guid: 451e0886f8c39754597d3979c9ac8240, type: 2}
   dialogs:
-  - You want trade ? Let me see what you got.
+  - You want trade ?
   - '[Click ''Trade'' to open trade''s window]'
   sprites:
   - {fileID: -9211889809063366651, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}

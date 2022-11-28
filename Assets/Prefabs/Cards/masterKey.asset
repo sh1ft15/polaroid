@@ -17,6 +17,6 @@ MonoBehaviour:
   sprite: {fileID: -7415955986125602904, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
   preset: {fileID: 2655988077585873504, guid: 2237341531ec5e245a390959361434ff, type: 2}
   count: 0
-  limit: 1
+  limit: 3
   unlocked: 0
   description: The key help you open any common locks.

@@ -6,7 +6,7 @@ public class GhostScript : MonoBehaviour
 {
     [SerializeField] Rigidbody2D _rbody;
     [SerializeField] Animator _animator;
-    [SerializeField] GameObject _character, _collision, _healthBar;
+    [SerializeField] GameObject _character, _collision, _healthBar, _onSurrender, _onDeath;
     [SerializeField] CanvasGroup _canvasGroup;
     Vector2 _direction, _collidedPost, _nextPost, _dashTarget;
     float _moveSpeed, _damage, _curHealth, _maxHealth, _dashDelay, _digDelay, _verticalPost = -.35f;
@@ -15,7 +15,7 @@ public class GhostScript : MonoBehaviour
     StealthScript _stealth;
     AudioScript _audio;
     SpawnerScript _spawner;
-    bool _facingRight = true, _isAttacking, _isHit, _isDeath, _isUnderground, _isActive, _isDisabled, _hasNextPost;
+    bool _facingRight = true, _isAttacking, _isHit, _isDeath, _isUnderground, _isActive, _isPassive, _isDisabled, _hasNextPost;
     bool _startingDash, _isDashing, _endingDash;
     Coroutine _hitCoroutine, _attackCoroutine, _updatePatrolCoroutine, _triggerActiveCoroutine;
 
@@ -28,8 +28,9 @@ public class GhostScript : MonoBehaviour
 
         _moveSpeed = 2;
         _damage = 1;
-        _maxHealth = _curHealth = 3;
+        _maxHealth = _curHealth = 10;
         _dashDelay = _digDelay = 0;
+        _canvasGroup.alpha = 0;
 
         // SetDisabled(true);
     }
@@ -59,7 +60,17 @@ public class GhostScript : MonoBehaviour
         if (!_isDashing && _dashDelay > 0) { _dashDelay -= Time.deltaTime; }
         if (!_isUnderground && _digDelay > 0) { _digDelay -= Time.deltaTime; }
 
-        if (_isActive) {
+        if (_isDisabled) {
+            _nextPost = GetCenterPost();
+            distToPost = Mathf.Abs(curPost.x - _nextPost.x);
+            dir = (_nextPost - curPost).normalized;
+
+            if (distToPost <= 1f) { _direction = Vector2.zero; }
+            else { _direction = dir; }
+
+            if (_canvasGroup.alpha <= 0) { _canvasGroup.alpha = 1; }
+        }
+        else if (_isActive) {
             _nextPost = new Vector2(playerPost.x, _verticalPost);
             distToPost = Mathf.Abs(curPost.x - _nextPost.x);
             dir = (_nextPost - curPost).normalized;
@@ -109,7 +120,8 @@ public class GhostScript : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D col) {
-        if (_isDisabled || !_isActive) { return; }
+        if (_isDisabled && _isPassive) { }
+        else if (_isDisabled || !_isActive) { return; }
 
         if (col != null) {
             Transform root = col.transform.root;
@@ -167,6 +179,13 @@ public class GhostScript : MonoBehaviour
         return post;
     }
 
+    Vector2 GetCenterPost() {
+        float minX = _area.GetWestBound().x,
+              maxX = _area.GetEastBound().x;
+
+        return new Vector2((minX + maxX) / 2, _rbody.position.y);
+    }
+
     public void SetActive(bool status) { 
         if (_isDisabled && status) { return; }
 
@@ -174,22 +193,35 @@ public class GhostScript : MonoBehaviour
         _moveSpeed = status ? 2.7f : 2;
         _stealth?.ResetRecoverStealth(-1f, 2);
         
-        if (!_isUnderground) { ToggleUI(status); }
+        // if (!_isUnderground) { ToggleUI(status); }
         if (!_isActive) { StartCoroutine(UpdatePatrolPath()); } 
     }
 
     public void SetDisabled(bool status) {
         _isDisabled = status;
-        ToggleUI(status);
+        // ToggleUI(status);
 
-        if (status) { SetActive(false); }
+        if (status) { 
+            _nextPost = GetCenterPost();
+            SetActive(false); 
+        }
     }
 
-    public void ToggleUI(bool status) {
-        if (!_isActive && status) { status = false; }
+    public void SetPassive(bool status) {
+        _isPassive = status;
+        _stealth.AlarmMob(false);
 
-        _canvasGroup.alpha = status ? 1 : 0;
+        if (!_isDeath) {
+            _onSurrender.SetActive(true);
+            _onDeath.SetActive(false);
+        }
     }
+
+    // public void ToggleUI(bool status) {
+    //     if (!_isActive && status) { status = false; }
+
+    //     _canvasGroup.alpha = status ? 1 : 0;
+    // }
 
     public void UpdateAlpha(float dist){
         SpriteRenderer character = _character.transform.Find("Sprite").GetComponent<SpriteRenderer>(),
@@ -198,14 +230,17 @@ public class GhostScript : MonoBehaviour
               shadowColor = shadow.color;
 
         if (_isDisabled) {
-            if (charColor.a != 0) { charColor.a = 0; }
-            if (shadowColor.a != 0) { shadowColor.a = 0; }
+            int disabledAlpha = _isPassive ? 1 : 0;
+
+            if (charColor.a != disabledAlpha) { charColor.a = disabledAlpha; }
+            if (shadowColor.a != disabledAlpha) { shadowColor.a = disabledAlpha * .3f; }
         }
         else {
-            float maxAlpha = _isActive ? .9f : .5f,
+            float maxAlpha = _isActive ? 1f : .5f,
+                  minAlpha = _isActive ? .5f : 0,
                   maxDist = _isActive ? 6.5f : 5;
 
-            dist = maxAlpha - Mathf.Min(dist / maxDist, maxAlpha);
+            dist = maxAlpha - Mathf.Max(Mathf.Min(dist / maxDist, maxAlpha), minAlpha);
             charColor.a = dist;
             shadowColor.a = dist * .3f;
         }
@@ -224,11 +259,12 @@ public class GhostScript : MonoBehaviour
 
             _isDeath = true;
             _animator.Play("death", 0);
-            _rbody.gravityScale = 0;
-            // _spawner.UpdateDeathCount(1);
+
+            _onSurrender.SetActive(false);
+            _onDeath.SetActive(true);
 
             yield return new WaitForSeconds(2);
-            gameObject.SetActive(false);
+            // gameObject.SetActive(false);
         }    
     }
 
@@ -242,6 +278,11 @@ public class GhostScript : MonoBehaviour
 
         scale.x = _curHealth / _maxHealth;
         _healthBar.transform.localScale = scale;
+
+        if (!_isPassive && scale.x <= .5f) { 
+            SetDisabled(true);
+            SetPassive(true); 
+        }
 
         if (_curHealth <= 0) { StartCoroutine(TriggerDeath()); }
     }
@@ -288,7 +329,7 @@ public class GhostScript : MonoBehaviour
         if (!_isHit && !_isAttacking && !_isUnderground) {
             _isAttacking = true;
             _animator.SetTrigger("dig_in");
-            ToggleUI(false);
+            // ToggleUI(false);
 
             yield return new WaitForSeconds(3f);
 
@@ -322,7 +363,7 @@ public class GhostScript : MonoBehaviour
             _isUnderground = false;
             _digDelay = _isActive ? 1.2f : 3f;
 
-            if (_isActive) { ToggleUI(true); }
+            // if (_isActive) { ToggleUI(true); }
         }
     }
 
@@ -360,7 +401,7 @@ public class GhostScript : MonoBehaviour
 
     void MoveCharacter(float horizontal) {
         _direction.y = 0;
-
+        
         if (_isHit) {
             _direction = new Vector2((_collidedPost.x > transform.position.x)? -1 : 1, 0);
             _rbody.velocity = _direction * (_moveSpeed * 0.5f);

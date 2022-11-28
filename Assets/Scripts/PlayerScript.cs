@@ -66,6 +66,8 @@ public class PlayerScript : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Space)) { 
+            if (!_card.HasCard("dodgeRoll")) { return; }
+
             Vector2 dir = _direction;
 
             if (_direction.magnitude <= 0) { dir.x = _facingRight ? 1 : -1; }
@@ -73,7 +75,11 @@ public class PlayerScript : MonoBehaviour
             _attackCoroutine = StartCoroutine(DodgeRoll(dir)); 
         }
 
-        if (Input.GetMouseButtonDown(0)) { _attackCoroutine = StartCoroutine(Attack());  }
+        if (Input.GetMouseButtonDown(0)) { 
+            if (!_card.HasCard("punch")) { return; }
+
+            _attackCoroutine = StartCoroutine(Attack());  
+        }
     }
 
     void FixedUpdate() { MoveCharacter(_direction.x); }
@@ -278,6 +284,7 @@ public class PlayerScript : MonoBehaviour
 
             yield return new WaitForSeconds(1); 
             _card.ResetCards();
+            _card.UpdateCardCount("blank", 1);
             _sceneLoader.RestartCurrentScene();
         }    
     }

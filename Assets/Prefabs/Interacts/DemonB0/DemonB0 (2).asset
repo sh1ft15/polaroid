@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee0ef953e7a18534ca5162f05b89cbf7, type: 3}
+  m_Name: DemonB0 (2)
+  m_EditorClassIdentifier: 
+  characterName: Demon B
+  condition: 1-speech
+  giveCards:
+  - {fileID: 11400000, guid: c05358fb3c686594faba7dcab367c95c, type: 2}
+  - {fileID: 11400000, guid: 6e7fa7dde40006241b1d0bc3d9e0aef7, type: 2}
+  receiveCards:
+  - {fileID: 11400000, guid: 6e7fa7dde40006241b1d0bc3d9e0aef7, type: 2}
+  - {fileID: 11400000, guid: c05358fb3c686594faba7dcab367c95c, type: 2}
+  dialogs:
+  - 'you''re looking for cloth or trade ? '
+  sprites:
+  - {fileID: 5404652341917355970, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
+  playOnAwake: 0

@@ -42,7 +42,7 @@ Preset:
     objectReference: {fileID: 2655988077585873504}
   - target: {fileID: 0}
     propertyPath: count
-    value: 0
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: limit
@@ -54,6 +54,6 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: description
-    value: You can  punch anything, even ghost
+    value: You can  punch anything, even ghost. ['Left Click' to punch]
     objectReference: {fileID: 0}
   m_ExcludedProperties: []

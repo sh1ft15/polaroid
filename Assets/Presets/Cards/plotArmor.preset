@@ -54,6 +54,6 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: description
-    value: Plot armor help you tank a hit. Represent your health point.
+    value: Plot armor represent the number of hit you can take before dying.
     objectReference: {fileID: 0}
   m_ExcludedProperties: []

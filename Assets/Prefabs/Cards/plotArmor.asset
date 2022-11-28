@@ -19,4 +19,4 @@ MonoBehaviour:
   count: 3
   limit: 10
   unlocked: 1
-  description: Plot armor help you tank a hit. Represent your health point.
+  description: Plot armor represent the number of hit you can take before dying.

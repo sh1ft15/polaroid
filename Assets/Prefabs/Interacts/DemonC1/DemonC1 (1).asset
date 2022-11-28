@@ -10,21 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee0ef953e7a18534ca5162f05b89cbf7, type: 3}
-  m_Name: Npc2
+  m_Name: DemonC1 (1)
   m_EditorClassIdentifier: 
-  characterName: Npc 1
+  characterName: Demon C
+  condition: 1-speech
   giveCards:
-  - {fileID: 11400000, guid: 451e0886f8c39754597d3979c9ac8240, type: 2}
-  - {fileID: 11400000, guid: 00276e9574f2a5b4e99f7eb391b7e20e, type: 2}
+  - {fileID: 11400000, guid: 038dc1b4fa97b1a46a3368b06074ff88, type: 2}
   receiveCards:
-  - {fileID: 11400000, guid: 00276e9574f2a5b4e99f7eb391b7e20e, type: 2}
-  - {fileID: 11400000, guid: 451e0886f8c39754597d3979c9ac8240, type: 2}
+  - {fileID: 11400000, guid: 00d45e2184158df4b92c635b17857727, type: 2}
   dialogs:
-  - You can't get rid of those polaroid images.
-  - You can only trade them.
-  - '[''Tab'' to open inventory.]'
+  - do you feel like dreaming ?
+  - i can help wake you up.
   sprites:
-  - {fileID: 1771227250153909093, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
   - {fileID: 1771227250153909093, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
   - {fileID: 1771227250153909093, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
   playOnAwake: 0

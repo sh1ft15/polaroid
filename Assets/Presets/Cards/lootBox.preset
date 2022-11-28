@@ -6,7 +6,7 @@ Preset:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: wts
+  m_Name: lootBox
   m_TargetType:
     m_NativeTypeID: 114
     m_ManagedTypePPtr: {fileID: 11500000, guid: 06e0fbb5b72c94146b99f0ddf4fa8fc4, type: 3}
@@ -26,11 +26,11 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: title
-    value: What is this ?
+    value: Loot Box
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: code
-    value: wts
+    value: lootBox
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: sprite
@@ -42,7 +42,7 @@ Preset:
     objectReference: {fileID: 2655988077585873504}
   - target: {fileID: 0}
     propertyPath: count
-    value: 0
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: limit
@@ -54,6 +54,6 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: description
-    value: I am not sure what this do.
+    value: You don't know what you might get and how to get it.
     objectReference: {fileID: 0}
   m_ExcludedProperties: []
