@@ -16,7 +16,7 @@ MonoBehaviour:
   code: quit
   sprite: {fileID: -657809462729225012, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
   preset: {fileID: 2655988077585873504, guid: 31be865f13d2cde4e868466f7dd5a4ae, type: 2}
-  count: 1
+  count: 0
   limit: 1
-  unlocked: 1
+  unlocked: 0
   description: Allow you to quit the game.

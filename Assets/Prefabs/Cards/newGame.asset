@@ -16,7 +16,7 @@ MonoBehaviour:
   code: newGame
   sprite: {fileID: 3929718611160277314, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
   preset: {fileID: 2655988077585873504, guid: 3ddda5532b69c3f4680076625a0cfcd0, type: 2}
-  count: 0
+  count: 1
   limit: 1
-  unlocked: 0
+  unlocked: 1
   description: You started a new game, you must finish the game to be able to escape.

@@ -16,7 +16,7 @@ MonoBehaviour:
   code: punch
   sprite: {fileID: 2364552672744995599, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
   preset: {fileID: 2655988077585873504, guid: fd0bc9d7a0bf4eb4aa6da31de748f973, type: 2}
-  count: 1
+  count: 0
   limit: 1
-  unlocked: 1
+  unlocked: 0
   description: You can  punch anything, even ghost. ['Left Click' to punch]

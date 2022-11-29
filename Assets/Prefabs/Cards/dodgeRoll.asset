@@ -16,8 +16,8 @@ MonoBehaviour:
   code: dodgeRoll
   sprite: {fileID: 2975849240591541955, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
   preset: {fileID: 2655988077585873504, guid: 42025898ef54edf4081e02f6afaa8d4f, type: 2}
-  count: 1
+  count: 0
   limit: 1
-  unlocked: 1
+  unlocked: 0
   description: Allow you to perform dodge roll. You're somehow invincible while doing
     it. ['Space' to roll]
