@@ -19,5 +19,5 @@ MonoBehaviour:
   count: 0
   limit: 1
   unlocked: 0
-  description: Must have been the wind. Allow you to crouch, make it harder for enemy
-    to detect you.
+  description: '`Must have been the wind.` Allow you to crouch, make it harder for
+    enemy to detect you. [''S'' to crouch]'

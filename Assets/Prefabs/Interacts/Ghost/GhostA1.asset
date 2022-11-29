@@ -21,5 +21,7 @@ MonoBehaviour:
   dialogs:
   - ....
   sprites:
-  - {fileID: -8036975594574440319, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
+  - {fileID: -3137664238190746013, guid: 5c95b04e6202f924b9c18bb4c91dec59, type: 3}
   playOnAwake: 0
+  playOnTrigger: 0
+  toggleEnemy: 0

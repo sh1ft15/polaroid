@@ -11,6 +11,6 @@ public class InteractObject : ScriptableObject
     public List<CardObject> receiveCards;
     public List<string> dialogs;
     public List<Sprite> sprites;
-    public bool playOnAwake;
+    public bool toggleEnemy;
 }
 

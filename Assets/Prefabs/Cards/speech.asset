@@ -16,7 +16,7 @@ MonoBehaviour:
   code: speech
   sprite: {fileID: 8948946568479395471, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
   preset: {fileID: 2655988077585873504, guid: 7cafb500359b4254cb12c67bb383ee32, type: 2}
-  count: 0
+  count: 1
   limit: 1
-  unlocked: 0
+  unlocked: 1
   description: Allow you to talk to anyone or anything ?

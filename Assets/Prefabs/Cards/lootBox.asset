@@ -16,7 +16,7 @@ MonoBehaviour:
   code: lootBox
   sprite: {fileID: -8096500043677648198, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
   preset: {fileID: 2655988077585873504, guid: 1e4f88983a1982d4e814fe85fb1d8ee3, type: 2}
-  count: 1
+  count: 0
   limit: 1
-  unlocked: 1
+  unlocked: 0
   description: You don't know what you might get and how to get it.

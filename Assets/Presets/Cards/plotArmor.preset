@@ -46,7 +46,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: limit
-    value: 10
+    value: 5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: unlocked

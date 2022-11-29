@@ -42,13 +42,32 @@ public class AreaScript : MonoBehaviour
             _westBound = _activeArea.Find("WestBound");
             _eastBound = _activeArea.Find("EastBound");
             _switch = _activeArea.Find("Switch")?.GetComponent<SwitchScript>();
-            _locationLabel.text = "- " + SplitCamelCase(area.name) + " -";
+            _locationLabel.text = SplitCamelCase(area.name);
+        }
+    }
+
+    public void UpdateInteracts(bool status) {
+        if (_activeArea == null) { return; }
+
+        Transform props = _activeArea.Find("Props");
+
+        for(int i = 0; i < props.childCount; i++) {
+            GameObject child = props.GetChild(i)?.gameObject;
+
+            if (status) {
+                InteractScript script = child.GetComponent<InteractScript>();
+
+                if (script && script.HideOnAlarmed()) { script.gameObject.SetActive(false); }
+            }
+            else { if (!child.activeSelf) { child.SetActive(true); } }
         }
     }
 
     public Vector2 GetWestBound() { return (Vector2) _westBound?.position; }
 
     public Vector2 GetEastBound() { return (Vector2) _eastBound?.position; }
+
+    public SwitchScript GetSwitch() { return _switch; }
 
     public void GotoTarget(Transform target){
         if (_changeAreaCoroutine == null) { 
@@ -82,7 +101,6 @@ public class AreaScript : MonoBehaviour
 
             yield return new WaitForSeconds(.3f);
             _changingArea = false;
-            // _stealth.UpdateArea(areaName);
         }
         else { Debug.Log("Cannot leave this area"); }
 

@@ -42,7 +42,7 @@ Preset:
     objectReference: {fileID: 2655988077585873504}
   - target: {fileID: 0}
     propertyPath: count
-    value: 1
+    value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: limit

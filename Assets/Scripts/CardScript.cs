@@ -10,6 +10,8 @@ public class CardScript : MonoBehaviour
     InteractObject _curInteractObject;
     PlayerScript _player;
     SceneLoaderScript _sceneLoader;
+    GhostScript _ghost;
+    StealthScript _stealth;
     int _curInteractIndex = 0, _curTradeIndex = 0;
     string _curUIType;
     Coroutine _animateTradeCoroutine;
@@ -18,9 +20,20 @@ public class CardScript : MonoBehaviour
     void Start() {
         _player = GameObject.Find("/Player").GetComponent<PlayerScript>();
         _sceneLoader = GameObject.Find("SceneLoader").GetComponent<SceneLoaderScript>();
+        _stealth = GameObject.Find("/Stealth").GetComponent<StealthScript>();
+        _ghost = GameObject.Find("/Ghost").GetComponent<GhostScript>();
     }
 
     void Update() {
+        if (_stealth.IsAlarmed()) {
+            if (_uiActive) {
+                if (_curUIType.Equals("interact")) { ToggleInteract(false); }
+                else if (_curUIType.Equals("inventory")) { ToggleInventory(false); }
+                else if (_curUIType.Equals("trade")) { ToggleTrade(false); }
+            }
+            return;
+        }
+
         if (Input.GetKeyUp(KeyCode.Tab)) { 
             if (_curUIType.Equals("interact")) { ToggleInteract(false); }
             if (_curUIType.Equals("inventory") || _curUIType.Equals("")) { ToggleInventory(!_uiActive); }
@@ -207,7 +220,10 @@ public class CardScript : MonoBehaviour
             }
             else { 
                 _curInteractIndex = 0; 
-                // _curInteractObject = null;
+
+                if (_curInteractObject.toggleEnemy) { 
+                    _ghost.SetDisabled(!_ghost.IsDisabled()); 
+                }
             }
 
             ToggleCanvasGroup(_interactUI, status);
@@ -234,7 +250,6 @@ public class CardScript : MonoBehaviour
                 Sprite sprite = sprites[index]; 
 
                 if (!image.enabled) { image.enabled = true; }
-
                 if (sprite != null) { image.sprite = sprite; }
             }
 
@@ -243,7 +258,7 @@ public class CardScript : MonoBehaviour
             _curInteractIndex = index;
         }
         // clicking the last next
-        else if (index >= dialogs.Count) { ToggleInteract(false); }
+        else if (index >= dialogs.Count) { ToggleInteract(false);  }
     }
 
     void ToggleCanvasGroup(Transform ui, bool status) {

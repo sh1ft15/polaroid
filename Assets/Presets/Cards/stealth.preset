@@ -54,7 +54,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: description
-    value: Must have been the wind. Allow you to crouch, make it harder for enemy
-      to detect you.
+    value: '`Must have been the wind.` Allow you to crouch, make it harder for enemy
+      to detect you. [''S'' to crouch]'
     objectReference: {fileID: 0}
   m_ExcludedProperties: []
