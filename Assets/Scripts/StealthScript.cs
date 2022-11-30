@@ -64,8 +64,14 @@ public class StealthScript : MonoBehaviour
 
             _area.UpdateInteracts(status);
 
-            if (status) { _audio.SetMusicPitch(1.2f); }
-            else { _audio.SetMusicPitch(1); }
+            if (status) { 
+                _audio.PlayMusic("loop_2");
+                //_audio.SetMusicPitch(1.2f); 
+            }
+            else { 
+                _audio.PlayMusic("loop_1");
+                // _audio.SetMusicPitch(1); 
+            }
         }
     }
 

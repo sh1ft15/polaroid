@@ -52,7 +52,7 @@ public class InteractScript : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.E)) { ToggleInteract(); }
     }
 
-    void ToggleInteract() {
+    public void ToggleInteract() {
         int index = _curInteractIndex;
         InteractObject interact = _interacts[index];
 

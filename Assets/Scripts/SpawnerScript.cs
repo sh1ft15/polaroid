@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpawnerScript : MonoBehaviour
 {
-    [SerializeField] GameObject _effectPrefab;
+    [SerializeField] GameObject _effectPrefab, _ratePrefab;
     PlayerScript _playerScript;
     int _maxPool = 20;
     Dictionary<string, List<GameObject>> objectPools;
@@ -16,6 +17,7 @@ public class SpawnerScript : MonoBehaviour
 
         // prefabs["Bullet"] = _bulletPrefab.transform;
         prefabs["Effect"] = _effectPrefab.transform;
+        prefabs["Rate"] = _ratePrefab.transform;
 
         foreach(KeyValuePair<string, Transform> prefab in prefabs){
             string key = prefab.Key;
@@ -56,6 +58,21 @@ public class SpawnerScript : MonoBehaviour
 
         yield return new WaitForSeconds(1);
         hit.gameObject.SetActive(false);
+    }
+
+    public IEnumerator SpawnRate(Vector2 post, Color color, string msg){
+        Transform rate = GetPooledObject("Rate").transform;
+        Text label = rate.Find("Canvas/Text").GetComponent<Text>();
+
+        rate.gameObject.SetActive(true);
+        rate.position = post;
+        label.color = color;
+        label.fontSize = 20;
+        label.text = msg;
+
+        yield return new WaitForSeconds(1);
+
+        rate.gameObject.SetActive(false);
     }
 
     GameObject GetPooledObject(string key){

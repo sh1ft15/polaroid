@@ -16,6 +16,7 @@ public class GhostScript : MonoBehaviour
     StealthScript _stealth;
     AudioScript _audio;
     SpawnerScript _spawner;
+    CardScript _card;
     SceneLoaderScript _sceneLoader;
     bool _facingRight = true, _isAttacking, _isHit, _isDeath, _isUnderground, _isActive, _isPassive, _isDisabled, _hasNextPost;
     bool _startingDash, _isDashing, _endingDash;
@@ -28,13 +29,14 @@ public class GhostScript : MonoBehaviour
         _stealth = GameObject.Find("/Stealth").GetComponent<StealthScript>();
         _audio = GameObject.Find("/Audio").GetComponent<AudioScript>();
         _sceneLoader = GameObject.Find("/SceneLoader").GetComponent<SceneLoaderScript>();
+        _card = GameObject.Find("/Card").GetComponent<CardScript>();
 
         _charRend = _character.transform.Find("Sprite").GetComponent<SpriteRenderer>();
         _shadowRend = _character.transform.Find("Shadow").GetComponent<SpriteRenderer>();
 
         _moveSpeed = 2;
         _damage = 1;
-        _maxHealth = _curHealth = 10;
+        _maxHealth = _curHealth = 20;
         _dashDelay = _digDelay = 0;
         _canvasGroup.alpha = 0;
 
@@ -162,7 +164,9 @@ public class GhostScript : MonoBehaviour
         offset = new Vector3((Random.value <= .5f ? 1 : -1) * offsetNum, 0, 0);
         newPost = relativePost + offset;
 
-        return CheckPostBound(newPost);
+
+        return newPost; 
+        // return CheckPostBound(newPost);
     }
 
     Vector2 CheckPostBound(Vector2 post) {
@@ -248,8 +252,10 @@ public class GhostScript : MonoBehaviour
             _onSurrender.SetActive(false);
             _onDeath.SetActive(true);
 
-            yield return new WaitForSeconds(1.5f);
-            _sceneLoader.LoadScene("EndSceneA");
+            yield return new WaitForSeconds(0.5f);
+            _onDeath.GetComponent<InteractScript>().ToggleInteract();
+            
+            // _sceneLoader.LoadScene("EndSceneA");
         }    
     }
 
@@ -274,6 +280,7 @@ public class GhostScript : MonoBehaviour
             _collidedPost = post;
             _collidedPost.y = transform.position.y;
             _hitCoroutine = StartCoroutine(Hit(dir, 0.4f));
+            _audio.PlayAudio(GetComponent<AudioSource>(), "hurt_2");
             UpdateHealth(-1, true);
         }
     }

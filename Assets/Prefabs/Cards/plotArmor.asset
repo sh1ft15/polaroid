@@ -15,7 +15,6 @@ MonoBehaviour:
   title: Plot Armor
   code: plotArmor
   sprite: {fileID: -1145144668836272637, guid: 57ff76ae7ff463d479a5ed0c19827907, type: 3}
-  preset: {fileID: 2655988077585873504, guid: 690287c8e9e022747861df924ebe1cd5, type: 2}
   count: 3
   limit: 5
   unlocked: 1

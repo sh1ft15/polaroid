@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CardScript : MonoBehaviour
 {
     [SerializeField] List<CardObject> _cards;
-    [SerializeField] Transform _inventoryUI, _tradeUI, _interactUI;
+    [SerializeField] Transform _inventoryUI, _tradeUI, _interactUI, _settingUI;
     InteractObject _curInteractObject;
     PlayerScript _player;
     SceneLoaderScript _sceneLoader;
@@ -30,6 +30,7 @@ public class CardScript : MonoBehaviour
                 if (_curUIType.Equals("interact")) { ToggleInteract(false); }
                 else if (_curUIType.Equals("inventory")) { ToggleInventory(false); }
                 else if (_curUIType.Equals("trade")) { ToggleTrade(false); }
+                else if (_curUIType.Equals("setting")) { ToggleSetting(false); }
             }
             return;
         }
@@ -37,6 +38,10 @@ public class CardScript : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Tab)) { 
             if (_curUIType.Equals("interact")) { ToggleInteract(false); }
             if (_curUIType.Equals("inventory") || _curUIType.Equals("")) { ToggleInventory(!_uiActive); }
+        }
+
+        if (Input.GetKeyUp(KeyCode.Escape)) {
+            if (_curUIType.Equals("setting") || _curUIType.Equals("")) { ToggleSetting(!_uiActive); }
         }
     }
 
@@ -53,13 +58,32 @@ public class CardScript : MonoBehaviour
 
         if (card != null) { 
             card.count = Mathf.Min(Mathf.Max(card.count + num, 0), card.limit);
+            card.unlocked = card.count > 0;
         }
     }
 
     public void ResetCards() {
         foreach(CardObject card in _cards) {
-            if (!card.code.Equals("blank")) { card.preset.ApplyTo(card); }
-            
+            switch(card.code) {
+                case "blank": break;
+                case "newGame": 
+                    card.count = 1;
+                    card.limit = 1;
+                break;
+                case "plotArmor":
+                    card.count = 3;
+                    card.limit = 5;
+                break;
+                case "masterKey":
+                    card.count = 0;
+                    card.limit = 3;
+                break;
+                default:
+                    card.count = 0;
+                    card.limit = 1;
+                break;
+            }
+
             card.unlocked = card.count > 0;
         }
     }
@@ -125,6 +149,16 @@ public class CardScript : MonoBehaviour
             ToggleCanvasGroup(_tradeUI, status);
             _uiActive = status;
             _curUIType = status ? "trade" : "";
+        }
+    }
+
+    public void ToggleSetting(bool status) {
+        if (_uiActive && status) { return; }
+
+        if (_uiActive != status) {
+            ToggleCanvasGroup(_settingUI, status);
+            _uiActive = status;
+            _curUIType = status ? "setting" : "";
         }
     }
 
@@ -215,6 +249,8 @@ public class CardScript : MonoBehaviour
                     trade.SetActive(giveCards.Count > 0 && receiveCards.Count == giveCards.Count);
                     _curInteractObject = interact;
                     CycleInteract(0);
+
+                    // Debug.Log(_curInteractObject);
                 }
                 else { return; }
             }

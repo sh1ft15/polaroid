@@ -18,7 +18,7 @@ public class PlayerScript : MonoBehaviour
     Vector2 _direction, _collidedPost, _checkScale, _dodgeTarget;
     bool _facingRight = true, _isAttacking, _isDodging, _isCrouching, _isHit, _isDeath, _isDisabled, _forceCrouch;
     Coroutine _attackCoroutine, _hitCoroutine, _recoverArmorCoroutine, _stunCoroutine, footstepCoroutine;
-    float _damage = 2, _moveSpeed = 3, _curHealth = 0, _maxHealth = 10;
+    float _damage = 2, _moveSpeed = 3, _curHealth = 3, _maxHealth = 5;
     int _obstacleLayer;
 
     void Start(){
@@ -31,19 +31,29 @@ public class PlayerScript : MonoBehaviour
 
         _obstacleLayer = LayerMask.GetMask("Obstacle");
         _checkScale = new Vector2(1, 2);
+        _card.ResetCards();
+
+        // PlayerPrefs.DeleteAll();
+        // PlayerPrefs.Save();
+
+        // init blank
+        // if (PlayerPrefs.HasKey("blank_val")) {
+        //     _card.UpdateCardCount("blank", PlayerPrefs.GetInt("blank_val"));
+        // }
+
+        // Debug.Log("count after restart: " + PlayerPrefs.GetInt("blank_val"));
 
         // init health
         CardObject plotArmor = _card.GetCard("plotArmor");
 
         if (plotArmor != null) {
-            _curHealth = plotArmor.count;
+            _curHealth = Mathf.Max(plotArmor.count, 0);
             _maxHealth = plotArmor.limit;
         }
+
+//         Debug.Log(Mathf.Max(plotArmor.count, 0) + " / " + _curHealth);
         
         UpdateHealth(_curHealth);
-
-        // todo: disabled before deployment
-        _card.ResetCards();
     }
 
     void Update() {
@@ -243,11 +253,16 @@ public class PlayerScript : MonoBehaviour
             if (_isDodging) { return; }
             if (_isCrouching) { StandUp(); }
 
-            _animator.Play(back ? "hurt_back" : "hurt", 0);
-            _hitCoroutine = StartCoroutine(Hit(.6f));
-            _spawner.StartCoroutine(_spawner.SpawnHit(hitPost));
-
-            UpdateHealth(-damage, true);
+            if (_card.HasCard("mobAim") && Random.value <= .5f) { //  
+                _spawner.StartCoroutine(_spawner.SpawnRate(hitPost, Color.white, "MISS"));
+            }
+            else {
+                _animator.Play(back ? "hurt_back" : "hurt", 0);
+                _hitCoroutine = StartCoroutine(Hit(.6f));
+                _spawner.StartCoroutine(_spawner.SpawnHit(hitPost));
+                _audio.PlayAudio(GetComponent<AudioSource>(), "hurt_1");
+                UpdateHealth(-damage, true);
+            }
         }
     }
 
@@ -283,8 +298,17 @@ public class PlayerScript : MonoBehaviour
             _animator.Play("death", 0);
 
             yield return new WaitForSeconds(1); 
-            _card.ResetCards();
+
+            // _card.ResetCards();
             _card.UpdateCardCount("blank", 1);
+
+            // int count = _card.GetCard("blank").count + 1;
+
+            // PlayerPrefs.SetInt("blank_val", count);
+            // PlayerPrefs.Save();
+
+            // Debug.Log("count before restart: " + PlayerPrefs.GetInt("blank_val"));
+
             _sceneLoader.RestartCurrentScene();
         }    
     }
