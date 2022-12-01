@@ -15,11 +15,11 @@ MonoBehaviour:
   characterName: Demon C
   condition: 1-speech
   giveCards:
-  - {fileID: 11400000, guid: 038dc1b4fa97b1a46a3368b06074ff88, type: 2}
+  - {fileID: 11400000, guid: 451e0886f8c39754597d3979c9ac8240, type: 2}
   receiveCards:
-  - {fileID: 11400000, guid: 00d45e2184158df4b92c635b17857727, type: 2}
+  - {fileID: 11400000, guid: bcda84a46d9083842a727783036d65de, type: 2}
   dialogs:
   - you need a key ?
   sprites:
   - {fileID: 1771227250153909093, guid: 1bb11ed8553aed945aed1475f3154192, type: 3}
-  playOnAwake: 0
+  toggleEnemy: 0
